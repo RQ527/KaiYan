@@ -17,5 +17,6 @@ object BuildConfig {
     const val okhttpInter = "com.squareup.okhttp3:logging-interceptor:4.9.3"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2"
-
+    const val glide = "com.github.bumptech.glide:glide:4.13.2"
+    const val glideAnnotation = "com.github.bumptech.glide:compiler:4.13.2"
 }

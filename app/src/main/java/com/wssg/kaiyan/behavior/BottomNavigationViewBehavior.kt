@@ -1,4 +1,4 @@
-package com.wssg.kaiyan
+package com.wssg.kaiyan.behavior
 
 import android.animation.ObjectAnimator
 import android.content.Context

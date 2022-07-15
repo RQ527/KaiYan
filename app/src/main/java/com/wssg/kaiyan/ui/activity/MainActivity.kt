@@ -1,15 +1,14 @@
-package com.wssg.kaiyan
+package com.wssg.kaiyan.ui.activity
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.wssg.kaiyan.viewmodel.HomeFragmentViewModel
+import com.wssg.kaiyan.R
 import com.wssg.kaiyan.adapter.FragmentPagerAdapter
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
-import com.wssg.lib.base.net.DataState
 
-class MainActivity : BaseVmActivity<TestViewModel>() {
+class MainActivity : BaseVmActivity<HomeFragmentViewModel>() {
     private val viewPager by R.id.vp_activityMain.view<ViewPager2>()
     val bottomView by R.id.bnv_home.view<BottomNavigationView>()
     override fun onCreate(savedInstanceState: Bundle?) {

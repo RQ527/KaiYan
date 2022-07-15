@@ -31,3 +31,9 @@ fun Project.dependCoroutines(){
         "implementation"(BuildConfig.coroutines)
     }
 }
+fun Project.dependGlide(){
+    dependencies {
+        "implementation"(BuildConfig.glide)
+        "annotationProcessor"(BuildConfig.glideAnnotation)
+    }
+}

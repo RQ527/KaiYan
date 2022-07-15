@@ -1,6 +1,8 @@
 package com.wssg.lib.base.base
 
+import android.os.Parcelable
 import com.wssg.lib.base.net.DataState
+import java.io.Serializable
 
 /**
  * ...
@@ -9,10 +11,10 @@ import com.wssg.lib.base.net.DataState
  * @date 2022/6/23
  * @Description:
  */
-open class BaseResp<T>(
-    var data: T? = null,
-    var errorCode: Int = -1,
-    var errorMsg: String? = null,
+class BaseResp<T>(
+    var itemList: List<T>? = null,
+    var count: Int = 0,
+    var nextPageUrl: String? = null,
     var dataState: DataState? = null,
-    var error:Throwable?=null
+    var error: Throwable? = null
 )

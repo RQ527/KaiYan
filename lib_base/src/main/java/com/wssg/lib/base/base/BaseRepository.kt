@@ -22,11 +22,9 @@ open class BaseRepository {
             emit(resp)
             try {
                 resp = block.invoke()
-                if (resp.errorCode != 0) {
+                if (resp.itemList == null) {
                     resp.dataState = DataState.STATE_FAILED
-                } else if (resp.data == null) {
-                    resp.dataState = DataState.STATE_EMPTY
-                } else {
+                }else {
                     resp.dataState = DataState.STATE_SUCCESS
                 }
                 emit(resp)

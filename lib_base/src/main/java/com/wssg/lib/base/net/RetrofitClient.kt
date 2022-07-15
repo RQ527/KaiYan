@@ -59,7 +59,7 @@ object RetrofitClient {
         .build()
 
     private var retrofit = Retrofit.Builder()
-        .baseUrl("https://www.wanandroid.com")
+        .baseUrl("http://baobab.kaiyanapp.com")
         .addConverterFactory(GsonConverterFactory.create())
 
     fun <T> getService(

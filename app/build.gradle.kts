@@ -32,6 +32,14 @@ android {
 }
 
 dependNetWork()
+dependGlide()
 dependencies {
     implementation(project(":lib_base"))
+    implementation("xyz.doikki.android.dkplayer:dkplayer-java:3.3.6")
+
+    implementation("xyz.doikki.android.dkplayer:player-exo:3.3.6")
+
+    implementation("xyz.doikki.android.dkplayer:player-ijk:3.3.6")
+    implementation("xyz.doikki.android.dkplayer:dkplayer-ui:3.3.6")
+
 }
