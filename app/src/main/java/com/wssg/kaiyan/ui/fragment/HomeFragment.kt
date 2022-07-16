@@ -6,15 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.wssg.kaiyan.viewmodel.HomeFragmentViewModel
 import com.wssg.kaiyan.R
+import com.wssg.kaiyan.adapter.HomeRvAdapter
+import com.wssg.kaiyan.bean.HomeBean
+import com.wssg.kaiyan.bean.VideoDetailBean
 import com.wssg.kaiyan.ui.activity.PlayVideoActivity
 import com.wssg.lib.base.base.ui.mvvm.BaseVmFragment
-import com.wssg.lib.base.bean.BannerBean
 import com.wssg.lib.base.net.DataState
-import com.wssg.lib.base.widget.MyBannerView
 
 /**
  * ...
@@ -30,32 +32,108 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_home, null)
-        val bannerView = view.findViewById<MyBannerView>(R.id.banner_fragHome)
-        val data =
-            mutableListOf(BannerBean("http://img.kaiyanapp.com/7ea328a893aa1f092b9328a53494a267.png?imageMogr2/quality/60/format/jpg","测试1"),
-                BannerBean("http://img.kaiyanapp.com/cd1244c8c75295747ebde0521207e668.jpeg?imageMogr2/quality/60/format/jpg","测试2")
-            )
-        bannerView.submitData(data)
-        bannerView.setOnItemClicked(object :MyBannerView.OnItemClicked{
-            override fun onLicked(position: Int) {
-                Toast.makeText(requireContext(),"$position",Toast.LENGTH_SHORT).show()
-            }
-        })
-        return view
+        return LayoutInflater.from(requireContext()).inflate(R.layout.fragment_home, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val intent = Intent(requireActivity(), PlayVideoActivity::class.java)
-//        viewModel.bannersLiveData.observe(requireActivity()) {
-//            Toast.makeText(requireContext(), "${it.dataState}", Toast.LENGTH_SHORT).show()
-//            if (it.dataState == DataState.STATE_SUCCESS) {
-//                val id =
-//                    it.itemList?.get(0)?.data?.itemList?.get(0)?.data?.header?.id?.toString()
-//            }
-//        }
-        intent.putExtra("videoId", "311878")
-
-
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_homeFrag)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        var adapter: HomeRvAdapter
+        viewModel.homeLiveData.observe(requireActivity()) {
+            if (it.dataState == DataState.STATE_SUCCESS) {
+                val bannerData = mutableListOf<VideoDetailBean>()
+                val realData = mutableListOf<VideoDetailBean>()
+                for (data in it.itemList!!) {
+                    when (data.type) {
+                        "squareCardCollection" -> {
+                            for (d in data.data.itemList) {
+                                bannerData.add(swapBannerBean(d.data.content.data))
+                            }
+                        }
+                        "followCard" -> {
+                            realData.add(swapContentBean(data.data.content))
+                        }
+                        "videoSmallCard" -> {
+                            realData.add(swapHomeDataBean(data.data))
+                        }
+                    }
+                }
+                adapter = HomeRvAdapter(realData, bannerData)
+                recyclerView.adapter = adapter
+                adapter.setOnClickedListener(object : HomeRvAdapter.OnClickedListener {
+                    override fun onClicked(detailBean: VideoDetailBean) {
+                        Toast.makeText(requireContext(), "$detailBean", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+        viewModel.getHomeData()
     }
+
+    private fun swapContentBean(data: HomeBean.Data.Content): VideoDetailBean =
+        data.data.run {
+            VideoDetailBean(
+                id,
+                playUrl,
+                cover.feed,
+                title,
+                category,
+                description,
+                VideoDetailBean.Consumption(
+                    consumption.collectionCount,
+                    consumption.shareCount,
+                    consumption.replyCount
+                ),
+                author.name,
+                author.description,
+                author.icon,
+                duration,
+                releaseTime
+            )
+        }
+
+    private fun swapHomeDataBean(data: HomeBean.Data) =
+        data.run {
+            VideoDetailBean(
+                id,
+                playUrl,
+                cover.feed,
+                title,
+                category,
+                description,
+                VideoDetailBean.Consumption(
+                    consumption.collectionCount,
+                    consumption.shareCount,
+                    consumption.replyCount
+                ),
+                author.name,
+                author.description,
+                author.icon,
+                duration,
+                releaseTime
+            )
+        }
+
+    private fun swapBannerBean(data: HomeBean.Data.Item.Data.Content.Data) =
+        data.run {
+            VideoDetailBean(
+                id,
+                playUrl,
+                cover.feed,
+                title,
+                category,
+                description,
+                VideoDetailBean.Consumption(
+                    consumption.collectionCount,
+                    consumption.shareCount,
+                    consumption.replyCount
+                ),
+                author.name,
+                author.description,
+                author.icon,
+                duration,
+                releaseTime
+            )
+        }
+
 }

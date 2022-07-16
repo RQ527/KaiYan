@@ -1,4 +1,4 @@
-package com.wssg.lib.base.adapter
+package com.wssg.lib.base.widget.banner
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,23 +16,23 @@ import com.wssg.lib.base.R
  * @email 1799796122@qq.com
  * @date 2022/4/1
  */
-class BannerAdapter(val context: Context, val urls: List<String>) :
+class BannerAdapter(private val urls: List<String>) :
     RecyclerView.Adapter<BannerAdapter.InnerHolder>() {
     private var listener: ItemOnClickedListener? = null
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_layout_banner, null)
-        view.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_banner,parent, false)
+//        view.layoutParams = ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.MATCH_PARENT
+//        )
         return InnerHolder(view)
     }
 
     override fun onBindViewHolder(holder: InnerHolder, position: Int) {
         if (urls.isNotEmpty())
-            Glide.with(this.context).load(urls[position % urls.size]).into(holder.imageView)
+            Glide.with(holder.itemView).load(urls[position % urls.size]).into(holder.imageView)
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE

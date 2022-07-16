@@ -1,4 +1,4 @@
-package com.wssg.lib.base.bean
+package com.wssg.lib.base.widget.banner
 
 /**
  * ...

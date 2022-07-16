@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+    <com.wssg.lib.base.widget.banner.MyBannerView
+        android:id="@+id/banner_rv_homeFrag"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardCornerRadius="5dp"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:text="- 日报精选 -"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

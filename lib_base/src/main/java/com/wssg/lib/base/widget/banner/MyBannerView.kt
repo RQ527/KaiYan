@@ -1,4 +1,4 @@
-package com.wssg.lib.base.widget
+package com.wssg.lib.base.widget.banner
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,18 +7,12 @@ import android.os.Looper
 import android.os.Message
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.size
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide.init
 import com.wssg.lib.base.R
-import com.wssg.lib.base.adapter.BannerAdapter
-import com.wssg.lib.base.bean.BannerBean
-import java.text.FieldPosition
 
 /**
  * ...
@@ -37,7 +31,7 @@ class MyBannerView @JvmOverloads constructor(
     private var vpBanner: ViewPager2
     private var tvTitle: TextView
     private var data: List<BannerBean>? = null
-    val bannerHandler = BannerHandler()
+    private val bannerHandler = BannerHandler()
 
     init {
         LayoutInflater.from(getContext()).inflate(R.layout.banner_layout, this, true)
@@ -57,8 +51,9 @@ class MyBannerView @JvmOverloads constructor(
                 addPoint(i)
             }
         }
-        val adapter = BannerAdapter(this.context, urls)
+        val adapter = BannerAdapter(urls)
         vpBanner.adapter = adapter
+        vpBanner.setPageTransformer(BannerTranAnim())
         vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -122,7 +117,7 @@ class MyBannerView @JvmOverloads constructor(
     inner class BannerHandler() : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            vpBanner.currentItem++
+            vpBanner.setCurrentItem(vpBanner.currentItem+1, 500)
             sendEmptyMessageDelayed(0, 3000)
         }
     }

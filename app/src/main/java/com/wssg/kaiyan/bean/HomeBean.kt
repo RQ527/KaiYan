@@ -1,18 +1,21 @@
 package com.wssg.kaiyan.bean
 
-import android.content.ClipData
-
 /**
  * ...
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
- * @date 2022/7/14
+ * @date 2022/7/16
  * @Description:
  */
-data class Banner(
+data class HomeBean(
+    val adIndex: Int,
     val `data`: Data,
+    val id: Int,
+    val tag: Any,
+    val trackingData: Any,
+    val type: String
 ) {
-    class Data(
+    data class Data(
         val actionUrl: String,
         val ad: Boolean,
         val adTrack: Any,
@@ -349,11 +352,11 @@ data class Banner(
                         val resourceType: String,
                         val searchWeight: Int,
                         val shareAdTrack: Any,
-                        val slogan: Any,
+                        val slogan: String,
                         val src: Any,
                         val subtitles: List<Any>,
                         val tags: List<Tag>,
-                        val thumbPlayUrl: Any,
+                        val thumbPlayUrl: String,
                         val title: String,
                         val titlePgc: String,
                         val type: String,
@@ -454,7 +457,7 @@ data class Banner(
                 data class Header(
                     val actionUrl: String,
                     val cover: Any,
-                    val description: Any,
+                    val description: String,
                     val font: Any,
                     val icon: String,
                     val iconType: String,

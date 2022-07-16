@@ -13,8 +13,8 @@ import com.wssg.lib.base.base.BaseRepository
  * @Description:
  */
 object KaiYanRepo : BaseRepository() {
-    fun getBanners() =
-        executeResp { RetrofitClient.getService(BannerService::class.java).getBanners() }
+    fun getHomeData() =
+        executeResp { RetrofitClient.getService(BannerService::class.java).getHomeData() }
     fun getVideoInfo(id:String) =
         executeResp { RetrofitClient.getService(PlayVideoService::class.java).getVideoInfo(id) }
 }

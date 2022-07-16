@@ -2,8 +2,8 @@ package com.wssg.kaiyan.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.wssg.kaiyan.bean.HomeBean
 import com.wssg.kaiyan.repo.KaiYanRepo
-import com.wssg.kaiyan.bean.Banner
 import com.wssg.kaiyan.bean.VideoInfo
 import com.wssg.lib.base.base.BaseResp
 import com.wssg.lib.base.base.BaseViewModel
@@ -16,14 +16,14 @@ import com.wssg.lib.base.base.BaseViewModel
  * @Description:
  */
 class HomeFragmentViewModel(): BaseViewModel() {
-    private val _bannersLiveData = MutableLiveData<BaseResp<Banner>>()
-    val bannersLiveData:LiveData<BaseResp<Banner>>
-    get() = _bannersLiveData
+    private val _homeLiveData = MutableLiveData<BaseResp<HomeBean>>()
+    val homeLiveData:LiveData<BaseResp<HomeBean>>
+    get() = _homeLiveData
 
     val testLiveData = MutableLiveData<BaseResp<VideoInfo>>()
-    fun getBanners() =
-        launch(KaiYanRepo.getBanners()){
-            _bannersLiveData.value = it
+    fun getHomeData() =
+        launch(KaiYanRepo.getHomeData()){
+            _homeLiveData.value = it
         }
     fun getVideoInfo(id:String) =
         launch(KaiYanRepo.getVideoInfo(id)){
