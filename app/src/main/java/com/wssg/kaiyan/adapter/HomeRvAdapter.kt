@@ -1,8 +1,8 @@
 package com.wssg.kaiyan.adapter
 
 import android.annotation.SuppressLint
-import android.icu.text.SimpleDateFormat
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +13,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wssg.kaiyan.R
-import com.wssg.kaiyan.bean.HomeBean
-import com.wssg.kaiyan.bean.HomeDetailBean
 import com.wssg.kaiyan.bean.VideoDetailBean
 import com.wssg.kaiyan.utils.durationToStr
 import com.wssg.lib.base.widget.banner.BannerBean
 import com.wssg.lib.base.widget.banner.MyBannerView
-import java.util.*
 
 /**
  * ...
@@ -32,53 +29,60 @@ class HomeRvAdapter(
     private var data: List<VideoDetailBean>,
     private var bannerData: List<VideoDetailBean>
 ) :
-    RecyclerView.Adapter<HomeRvAdapter.InnerHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class InnerHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var titleTv: TextView? = null
-        var kindTv: TextView? = null
-        var descrTv: TextView? = null
-        var durationTv: TextView? = null
-        var picIv: ImageView? = null
-        var headIv: ImageView? = null
-        var videoCardView: CardView? = null
+    inner class HomeDataHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var titleTv: TextView
+        var kindTv: TextView
+        var descrTv: TextView
+        var durationTv: TextView
+        var picIv: ImageView
+        var headIv: ImageView
+        var videoCardView: CardView
 
         init {
-            if (itemViewType != 0) {
-                titleTv = view.findViewById(R.id.tv_rvItemHome_title)
-                kindTv = view.findViewById(R.id.tv_rvItemHome_kind)
-                descrTv = view.findViewById(R.id.tv_rvItemHome_description)
-                durationTv = view.findViewById(R.id.tv_rvItemHome_duration)
-                picIv = view.findViewById(R.id.iv_rvItemHome_pic)
-                headIv = view.findViewById(R.id.iv_rvItemHome_head)
-                videoCardView = view.findViewById(R.id.cd_rvItemHome_video)
-            } else {
-                view.findViewById<MyBannerView>(R.id.banner_rv_homeFrag)
-                    .setOnItemClicked(object : MyBannerView.OnItemClicked {
-                        @SuppressLint("SimpleDateFormat")
-                        @RequiresApi(Build.VERSION_CODES.N)
-                        override fun onLicked(position: Int) {
-                            listener?.onClicked(bannerData[position])
-                        }
-                    })
+            titleTv = view.findViewById(R.id.tv_rvItemHome_title)
+            kindTv = view.findViewById(R.id.tv_rvItemHome_kind)
+            descrTv = view.findViewById(R.id.tv_rvItemHome_description)
+            durationTv = view.findViewById(R.id.tv_rvItemHome_duration)
+            picIv = view.findViewById(R.id.iv_rvItemHome_pic)
+            headIv = view.findViewById(R.id.iv_rvItemHome_head)
+            videoCardView = view.findViewById(R.id.cd_rvItemHome_video)
+            videoCardView?.setOnClickListener {
+                listener?.onClicked(data[absoluteAdapterPosition - 1])
             }
+        }
+
+    }
+
+    inner class BannerHolder(view: View) : RecyclerView.ViewHolder(view) {
+        init {
+            view.findViewById<MyBannerView>(R.id.banner_rv_homeFrag)
+                .setOnItemClicked(object : MyBannerView.OnItemClicked {
+                    @SuppressLint("SimpleDateFormat")
+                    @RequiresApi(Build.VERSION_CODES.N)
+                    override fun onLicked(position: Int) {
+                        listener?.onClicked(bannerData[position])
+                    }
+                })
         }
     }
 
     @SuppressLint("InflateParams")
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
-        return if (viewType == 0) InnerHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == 0) BannerHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_home_rv_header, parent, false)
         ) else {
-            InnerHolder(
+            HomeDataHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.item_home_rv, parent, false)
             )
         }
     }
 
-    override fun onBindViewHolder(holder: InnerHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == 0) {
+            holder as BannerHolder
             val bannerBeans = mutableListOf<BannerBean>()
             for (d in bannerData) {
                 bannerBeans.add(BannerBean(d.coverUrl, d.title))
@@ -86,28 +90,27 @@ class HomeRvAdapter(
             holder.itemView.findViewById<MyBannerView>(R.id.banner_rv_homeFrag)
                 .submitData(bannerBeans)
         } else {
-
+            holder as HomeDataHolder
             holder.apply {
-                val bean = data[position-1 % data.size]
-                titleTv?.text = bean.title
-                descrTv?.text = bean.author
-                kindTv?.text = bean.kind
-                durationTv?.text =
+                val bean = data[position - 1]
+                titleTv.text = bean.title
+                descrTv.text = bean.author
+                kindTv.text = bean.kind
+                durationTv.text =
                     bean.duration.durationToStr()
-                headIv?.let {
+                headIv.let {
                     Glide.with(this.itemView)
                         .load(bean.authorHeader)
                         .into(
                             it
                         )
                 }
-                picIv?.let {
+                picIv.let {
                     Glide.with(this.itemView)
                         .load(bean.coverUrl)
                         .into(it)
                 }
             }
-
         }
     }
 

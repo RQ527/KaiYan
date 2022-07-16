@@ -11,7 +11,7 @@ import retrofit2.http.GET
  * @date 2022/7/14
  * @Description:
  */
-interface BannerService {
+interface HomeService {
     @GET("/api/v5/index/tab/allRec")
     suspend fun getHomeData():BaseResp<HomeBean>
 

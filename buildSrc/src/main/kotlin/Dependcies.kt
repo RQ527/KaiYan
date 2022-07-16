@@ -37,3 +37,8 @@ fun Project.dependGlide(){
         "annotationProcessor"(BuildConfig.glideAnnotation)
     }
 }
+fun Project.dependPaging(){
+    dependencies {
+        "implementation"(BuildConfig.paging)
+    }
+}

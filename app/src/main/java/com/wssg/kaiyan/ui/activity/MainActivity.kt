@@ -10,7 +10,7 @@ import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 
 class MainActivity : BaseVmActivity<HomeFragmentViewModel>() {
     private val viewPager by R.id.vp_activityMain.view<ViewPager2>()
-    val bottomView by R.id.bnv_home.view<BottomNavigationView>()
+    private val bottomView by R.id.bnv_home.view<BottomNavigationView>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

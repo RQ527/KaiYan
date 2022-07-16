@@ -1,6 +1,6 @@
 package com.wssg.kaiyan.repo
 
-import com.wssg.kaiyan.net.BannerService
+import com.wssg.kaiyan.net.HomeService
 import com.wssg.kaiyan.net.PlayVideoService
 import com.wssg.lib.base.net.RetrofitClient
 import com.wssg.lib.base.base.BaseRepository
@@ -14,7 +14,7 @@ import com.wssg.lib.base.base.BaseRepository
  */
 object KaiYanRepo : BaseRepository() {
     fun getHomeData() =
-        executeResp { RetrofitClient.getService(BannerService::class.java).getHomeData() }
+        executeResp { RetrofitClient.getService(HomeService::class.java).getHomeData() }
     fun getVideoInfo(id:String) =
         executeResp { RetrofitClient.getService(PlayVideoService::class.java).getVideoInfo(id) }
 }

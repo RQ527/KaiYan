@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -86,7 +87,7 @@ class MyBannerView @JvmOverloads constructor(
     }
 
     private fun addPoint(i: Int) {
-        if (llPoint.childCount <= 10) {
+        if (llPoint.childCount < 10) {
             //添加指示点
             val point = ImageView(this.context)
             point.setBackgroundResource(R.drawable.point_selector)
@@ -140,6 +141,7 @@ class MyBannerView @JvmOverloads constructor(
     }
 
     fun setOnItemClicked(l: OnItemClicked) {
+        Log.d("RQ", "setOnItemClicked: ")
         this.listener = l
     }
 }
