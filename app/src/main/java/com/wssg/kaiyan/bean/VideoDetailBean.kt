@@ -19,7 +19,8 @@ data class VideoDetailBean(
     val authorDescription: String,
     val authorHeader: String,
     val duration:Int,
-    val releaseDate:Long
+    val releaseDate:Long,
+    val bannerData:List<VideoDetailBean>?
 ) {
     data class Consumption(
         val collectionCount: Int,

@@ -16,6 +16,7 @@ fun Project.dependAndroid(){
         "api"(BuildConfig.viewmodel)
         "api"(BuildConfig.constraintlayout)
         "api"(BuildConfig.material)
+        "api"(BuildConfig.lifecycleRuntime)
     }
 }
 fun Project.dependNetWork(){

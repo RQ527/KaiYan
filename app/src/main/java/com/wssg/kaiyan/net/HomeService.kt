@@ -3,6 +3,8 @@ package com.wssg.kaiyan.net
 import com.wssg.kaiyan.bean.HomeBean
 import com.wssg.lib.base.base.BaseResp
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * ...
@@ -13,6 +15,10 @@ import retrofit2.http.GET
  */
 interface HomeService {
     @GET("/api/v5/index/tab/allRec")
-    suspend fun getHomeData():BaseResp<HomeBean>
+    suspend fun getHomeData(
+        @Query("page") page: String,
+        @Query("isTag") isTag: String,
+        @Query("adIndex") adIndex: String
+    ): BaseResp<HomeBean>
 
 }

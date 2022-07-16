@@ -12,6 +12,7 @@ object BuildConfig {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
     const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+    const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc02"
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:2.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
     const val okhttpInter = "com.squareup.okhttp3:logging-interceptor:4.9.3"
