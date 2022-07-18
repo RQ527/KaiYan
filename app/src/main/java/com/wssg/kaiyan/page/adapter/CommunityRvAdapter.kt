@@ -68,7 +68,7 @@ class CommunityRvAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerRecommendViewHolder {
         return InnerRecommendViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_inner_find_recommend, parent, false)
+                .inflate(R.layout.item_recommend_rv, parent, false)
         )
     }
 

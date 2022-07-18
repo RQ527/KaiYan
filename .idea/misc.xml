@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/agree.xml" value="0.1895" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/agree_black.xml" value="0.134" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/agreefill.xml" value="0.161" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/comment.xml" value="0.1895" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/comment_black.xml" value="0.134" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/find.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/find_selector.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/home.xml" value="0.1895" />
@@ -20,20 +22,24 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/search.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_duration_home.xml" value="0.207" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_kind_home.xml" value="0.207" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/share.xml" value="0.134" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/share_black.xml" value="0.134" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/video.xml" value="0.161" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout-v28/item_home_rv_footer.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_play_video.xml" value="0.176" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_play_video.xml" value="0.4" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dkplayer_layout_standard_controller.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_find.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_hot.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_inner_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_mine.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_follow_rv.xml" value="0.4" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_home_rv.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_home_rv_footer.xml" value="0.264" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_home_rv_header.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_inner_find_recommend.xml" value="0.264" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_recommend_rv.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_vp_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/toolbar.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/video_portait_title.xml" value="0.2" />

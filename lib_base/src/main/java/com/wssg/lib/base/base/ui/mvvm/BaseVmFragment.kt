@@ -17,9 +17,7 @@ abstract class BaseVmFragment<VM : ViewModel> : BaseFragment() {
         ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        ).get(vmClass)
+        )[vmClass]
     }
-
-
 
 }

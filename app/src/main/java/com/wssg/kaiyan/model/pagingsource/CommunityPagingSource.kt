@@ -15,14 +15,10 @@ import java.lang.Exception
  * @date 2022/7/18
  * @Description:
  */
-class CommunityPagingSource : PagingSource<Int, CommunityData>() {
-    private var nextParams = ""
-    override fun getRefreshKey(state: PagingState<Int, CommunityData>): Int? = null
-
+class CommunityPagingSource : BasePagingSource<CommunityData>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CommunityData> {
         return try {
             val page = params.key ?: 1
-            Log.d("RQ", "load: $page")
             val homeData = if (nextParams == "")
                 RetrofitClient.getService(CommunityService::class.java).getCommunityData("", "")
             else RetrofitClient.getService(CommunityService::class.java)

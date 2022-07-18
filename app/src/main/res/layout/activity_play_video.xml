@@ -59,46 +59,40 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/agree" />
+
 
             <TextView
                 android:id="@+id/tv_playVideo_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:paddingStart="0dp"
+                android:gravity="center"
                 android:text="121"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:drawableLeftCompat="@drawable/agree"
+                tools:ignore="RtlSymmetry" />
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/share" />
 
             <TextView
                 android:id="@+id/tv_playVideo_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="20dp"
+                android:drawableLeft="@drawable/share"
                 android:text="121"
                 android:textColor="@color/white" />
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/comment" />
+
 
             <TextView
                 android:id="@+id/tv_playVideo_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="20dp"
                 android:text="121"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:drawableLeftCompat="@drawable/comment" />
 
         </LinearLayout>
     </LinearLayout>

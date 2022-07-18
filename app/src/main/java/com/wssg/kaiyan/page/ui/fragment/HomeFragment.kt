@@ -67,16 +67,16 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
                 )
             }
         })
-        pagingAdapter.addLoadStateListener {
-            when(it.refresh){
-                is LoadState.Loading->{
-                    refreshLayout.isRefreshing = true
-                }
-                is LoadState.Error,is LoadState.NotLoading ->{
-                    refreshLayout.isRefreshing = false
-                }
-            }
-        }
+//        pagingAdapter.addLoadStateListener {
+//            when(it.refresh){
+//                is LoadState.Loading->{
+//                    refreshLayout.isRefreshing = true
+//                }
+//                is LoadState.Error,is LoadState.NotLoading ->{
+//                    refreshLayout.isRefreshing = false
+//                }
+//            }
+//        }
         refreshLayout.setOnRefreshListener {
             if (refreshLayout.isRefreshing) {
                 pagingAdapter.refresh()

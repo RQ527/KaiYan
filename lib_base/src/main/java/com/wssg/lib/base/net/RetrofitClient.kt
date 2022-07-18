@@ -22,6 +22,10 @@ object RetrofitClient {
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor{chain ->
+            Log.d("RQ", "okhttp: ${chain.request().url}")
+            return@addInterceptor chain.proceed(chain.request().newBuilder().build())
+        }
         .build()
 
     private var saveCookieOkHttpClient = OkHttpClient.Builder()

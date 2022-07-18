@@ -34,3 +34,4 @@ android {
 dependAndroid()
 dependNetWork()
 dependGlide()
+dependPaging()

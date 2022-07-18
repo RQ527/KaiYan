@@ -21,4 +21,6 @@ class FindFragmentViewModel : BaseViewModel() {
 
     fun getCommunityData() =
         KaiYanRepo.getCommunityPagingData().cachedIn(viewModelScope)
+    fun getFollowData() =
+        KaiYanRepo.getFollowPagingData().cachedIn(viewModelScope)
 }

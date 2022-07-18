@@ -7,6 +7,7 @@ import com.wssg.kaiyan.model.pagingsource.CommunityPagingSource
 import com.wssg.kaiyan.model.pagingsource.HomePagingSource
 import com.wssg.kaiyan.model.bean.CommunityData
 import com.wssg.kaiyan.model.bean.VideoInfoData
+import com.wssg.kaiyan.model.pagingsource.FollowPagingSource
 import com.wssg.lib.base.base.BaseRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -18,18 +19,9 @@ import kotlinx.coroutines.flow.Flow
  * @Description:
  */
 object KaiYanRepo : BaseRepository() {
-    fun getHomePagingData(): Flow<PagingData<VideoInfoData>> =
-        Pager(config = PagingConfig(
-            pageSize = 10,
-            prefetchDistance = 10,
-        ),
-            pagingSourceFactory = { HomePagingSource() }).flow
+    fun getHomePagingData() = getPagingData { HomePagingSource() }
 
-    fun getCommunityPagingData(): Flow<PagingData<CommunityData>> =
-        Pager(config = PagingConfig(
-            pageSize = 10,
-            prefetchDistance = 2
-        ),
-            pagingSourceFactory = { CommunityPagingSource() }).flow
+    fun getCommunityPagingData() = getPagingData { CommunityPagingSource() }
 
+    fun getFollowPagingData() = getPagingData { FollowPagingSource() }
 }

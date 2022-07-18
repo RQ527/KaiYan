@@ -15,10 +15,7 @@ import java.lang.Exception
  * @date 2022/7/16
  * @Description:
  */
-class HomePagingSource() : PagingSource<Int, VideoInfoData>() {
-    var nextParams: String = ""
-    override fun getRefreshKey(state: PagingState<Int, VideoInfoData>): Int? = null
-
+class HomePagingSource() : BasePagingSource<VideoInfoData>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VideoInfoData> {
         return try {
             val page = params.key ?: 1
