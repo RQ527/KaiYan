@@ -20,6 +20,6 @@ abstract class BaseVmFragment<VM : ViewModel> : BaseFragment() {
         ).get(vmClass)
     }
 
-    fun <T : View> Int.view() = BindView<T>(this, BindView.GetActivity { requireActivity() })
+
 
 }

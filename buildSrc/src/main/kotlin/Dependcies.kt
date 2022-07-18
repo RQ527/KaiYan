@@ -17,6 +17,7 @@ fun Project.dependAndroid(){
         "api"(BuildConfig.constraintlayout)
         "api"(BuildConfig.material)
         "api"(BuildConfig.lifecycleRuntime)
+        "api"(BuildConfig.swiperefreshlayout)
     }
 }
 fun Project.dependNetWork(){

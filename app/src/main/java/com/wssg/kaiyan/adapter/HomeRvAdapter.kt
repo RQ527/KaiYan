@@ -2,7 +2,6 @@ package com.wssg.kaiyan.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wssg.kaiyan.R
-import com.wssg.kaiyan.bean.VideoDetailBean
+import com.wssg.kaiyan.bean.VideoInfoData
 import com.wssg.kaiyan.utils.durationToStr
 import com.wssg.lib.base.widget.banner.BannerBean
 import com.wssg.lib.base.widget.banner.MyBannerView
@@ -26,8 +25,8 @@ import com.wssg.lib.base.widget.banner.MyBannerView
  * @Description:
  */
 class HomeRvAdapter(
-    private var data: List<VideoDetailBean>,
-    private var bannerData: List<VideoDetailBean>
+    private var data: List<VideoInfoData>,
+    private var bannerData: List<VideoInfoData>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -122,7 +121,7 @@ class HomeRvAdapter(
     }
 
     interface OnClickedListener {
-        fun onClicked(detailBean: VideoDetailBean)
+        fun onClicked(detailBean: VideoInfoData)
     }
 
     private var listener: OnClickedListener? = null

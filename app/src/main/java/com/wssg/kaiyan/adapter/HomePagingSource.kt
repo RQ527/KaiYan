@@ -1,16 +1,12 @@
 package com.wssg.kaiyan.adapter
 
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.wssg.kaiyan.bean.HomeBean
-import com.wssg.kaiyan.bean.VideoDetailBean
+import com.wssg.kaiyan.bean.HomeVideoBean
+import com.wssg.kaiyan.bean.VideoInfoData
 import com.wssg.kaiyan.net.HomeService
 import com.wssg.lib.base.net.RetrofitClient
 import java.lang.Exception
-import kotlin.math.log
 
 /**
  * ...
@@ -19,11 +15,11 @@ import kotlin.math.log
  * @date 2022/7/16
  * @Description:
  */
-class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
+class HomePagingSource() : PagingSource<Int, VideoInfoData>() {
     var nextParams: String = ""
-    override fun getRefreshKey(state: PagingState<Int, VideoDetailBean>): Int? = null
+    override fun getRefreshKey(state: PagingState<Int, VideoInfoData>): Int? = null
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VideoDetailBean> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VideoInfoData> {
         return try {
             val page = params.key ?: 1
             val homeData = if (nextParams == "")
@@ -34,16 +30,14 @@ class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
                     nextParams.split("&")[1].split("=")[1],
                     nextParams.split("&")[2].split("=")[1]
                 )
-            Log.d("RQ", "load: ${homeData.itemList}")
             nextParams = if (homeData.nextPageUrl == null) "" else "?${
                 homeData.nextPageUrl!!.substring(
                     52,
                     homeData.nextPageUrl!!.length
                 )
             }"
-            Log.d("RQ", "load: $nextParams")
-            val bannerData = mutableListOf<VideoDetailBean>()
-            val realData = mutableListOf<VideoDetailBean>()
+            val bannerData = mutableListOf<VideoInfoData>()
+            val realData = mutableListOf<VideoInfoData>()
             for (data in homeData.itemList!!) {
                 when (data.type) {
                     "squareCardCollection" -> {
@@ -51,9 +45,9 @@ class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
                             bannerData.add(swapBannerBean(d.data.content.data))
                         }
                         realData.add(
-                            VideoDetailBean(
+                            VideoInfoData(
                                 -1, "", "", "", "", "",
-                                VideoDetailBean.Consumption(-1, -1, -1),
+                                VideoInfoData.Consumption(-1, -1, -1),
                                 "", "", "", -1, -1,
                                 bannerData
                             )
@@ -69,23 +63,22 @@ class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
             }
             val prevKey = if (page > 1) page - 1 else null
             val nextKey = if (nextParams != "") page + 1 else null
-            Log.d("RQ", "load: $nextKey")
             LoadResult.Page(realData, prevKey, nextKey)
         } catch (e: Exception) {
             LoadResult.Error(e)
         }
     }
 
-    private fun swapContentBean(data: HomeBean.Data.Content): VideoDetailBean =
+    private fun swapContentBean(data: HomeVideoBean.Data.Content): VideoInfoData =
         data.data.run {
-            VideoDetailBean(
+            VideoInfoData(
                 id,
                 playUrl,
                 cover.feed,
                 title,
                 category,
                 description,
-                VideoDetailBean.Consumption(
+                VideoInfoData.Consumption(
                     consumption.collectionCount,
                     consumption.shareCount,
                     consumption.replyCount
@@ -99,16 +92,16 @@ class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
             )
         }
 
-    private fun swapHomeDataBean(data: HomeBean.Data) =
+    private fun swapHomeDataBean(data: HomeVideoBean.Data) =
         data.run {
-            VideoDetailBean(
+            VideoInfoData(
                 id,
                 playUrl,
                 cover.feed,
                 title,
                 category,
                 description,
-                VideoDetailBean.Consumption(
+                VideoInfoData.Consumption(
                     consumption.collectionCount,
                     consumption.shareCount,
                     consumption.replyCount
@@ -122,16 +115,16 @@ class HomePagingResource() : PagingSource<Int, VideoDetailBean>() {
             )
         }
 
-    private fun swapBannerBean(data: HomeBean.Data.Item.Data.Content.Data) =
+    private fun swapBannerBean(data: HomeVideoBean.Data.Item.Data.Content.Data) =
         data.run {
-            VideoDetailBean(
+            VideoInfoData(
                 id,
                 playUrl,
                 cover.feed,
                 title,
                 category,
                 description,
-                VideoDetailBean.Consumption(
+                VideoInfoData.Consumption(
                     consumption.collectionCount,
                     consumption.shareCount,
                     consumption.replyCount

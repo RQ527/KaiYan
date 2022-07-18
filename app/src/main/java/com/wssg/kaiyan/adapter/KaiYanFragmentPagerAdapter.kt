@@ -14,7 +14,7 @@ import com.wssg.kaiyan.ui.fragment.MineFragment
  * @email 1799796122@qq.com
  * @date 2022/4/30
  */
-class FragmentPagerAdapter(_fragmentActivity: FragmentActivity) :
+class KaiYanFragmentPagerAdapter(_fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(_fragmentActivity) {
 
     override fun getItemCount(): Int = 4

@@ -1,11 +1,17 @@
 package com.wssg.kaiyan.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.wssg.kaiyan.R
+import com.wssg.kaiyan.adapter.FindFragPagerAdapter
+import com.wssg.lib.base.base.ui.BaseFragment
 
 /**
  * ...
@@ -14,13 +20,28 @@ import com.wssg.kaiyan.R
  * @date 2022/7/14
  * @Description:
  */
-class FindFragment:Fragment() {
+class FindFragment : BaseFragment() {
+    val indexTab by R.id.tl_findFrag_index.view<TabLayout>()
+    val viewPager by R.id.vp_findFrag.view<ViewPager2>()
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_find,null)
-        return view
+        return inflater.inflate(R.layout.fragment_find, null)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewPager.adapter = FindFragPagerAdapter(requireActivity())
+        TabLayoutMediator(indexTab, viewPager) { tab, positon ->
+            tab.text =
+                when (positon) {
+                    0 -> "关注"
+                    1 -> "分类"
+                    2 -> "推荐"
+                    else -> error("tabLayout位置错误")
+                }
+        }.attach()
     }
 }

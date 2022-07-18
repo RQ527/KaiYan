@@ -5,7 +5,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wssg.kaiyan.viewmodel.HomeFragmentViewModel
 import com.wssg.kaiyan.R
-import com.wssg.kaiyan.adapter.FragmentPagerAdapter
+import com.wssg.kaiyan.adapter.KaiYanFragmentPagerAdapter
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 
 class MainActivity : BaseVmActivity<HomeFragmentViewModel>() {
@@ -15,7 +15,7 @@ class MainActivity : BaseVmActivity<HomeFragmentViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomView.itemIconTintList = null
-        viewPager.adapter = FragmentPagerAdapter(this)
+        viewPager.adapter = KaiYanFragmentPagerAdapter(this)
         bottomView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> viewPager.currentItem = 0

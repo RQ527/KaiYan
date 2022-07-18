@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wssg.kaiyan.R
-import com.wssg.kaiyan.bean.VideoDetailBean
+import com.wssg.kaiyan.bean.VideoInfoData
 import com.wssg.kaiyan.utils.durationToStr
 import com.wssg.lib.base.widget.banner.BannerBean
 import com.wssg.lib.base.widget.banner.MyBannerView
@@ -26,20 +26,20 @@ import com.wssg.lib.base.widget.banner.MyBannerView
  * @date 2022/7/17
  * @Description:
  */
-class HomePagingAdapter : PagingDataAdapter<VideoDetailBean, RecyclerView.ViewHolder>(COMPARATOR) {
+class HomePagingAdapter : PagingDataAdapter<VideoInfoData, RecyclerView.ViewHolder>(COMPARATOR) {
     companion object {
         private val COMPARATOR =
-            object : DiffUtil.ItemCallback<VideoDetailBean>() {
+            object : DiffUtil.ItemCallback<VideoInfoData>() {
                 override fun areItemsTheSame(
-                    oldItem: VideoDetailBean,
-                    newItem: VideoDetailBean
+                    oldItem: VideoInfoData,
+                    newItem: VideoInfoData
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: VideoDetailBean,
-                    newItem: VideoDetailBean
+                    oldItem: VideoInfoData,
+                    newItem: VideoInfoData
                 ): Boolean {
                     return oldItem.title == newItem.title
                 }
@@ -134,7 +134,7 @@ class HomePagingAdapter : PagingDataAdapter<VideoDetailBean, RecyclerView.ViewHo
     }
 
     interface OnClickedListener {
-        fun onClicked(detailBean: VideoDetailBean)
+        fun onClicked(detailBean: VideoInfoData)
     }
 
     private var listener: OnClickedListener? = null

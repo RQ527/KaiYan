@@ -7,7 +7,7 @@ package com.wssg.kaiyan.bean
  * @date 2022/7/16
  * @Description:
  */
-data class HomeBean(
+data class HomeVideoBean(
     val adIndex: Int,
     val `data`: Data,
     val id: Int,

@@ -14,11 +14,12 @@ import com.bumptech.glide.Glide
 import com.wssg.kaiyan.viewmodel.HomeFragmentViewModel
 import com.wssg.kaiyan.widget.PortraitTitleView
 import com.wssg.kaiyan.R
+import com.wssg.kaiyan.bean.VideoInfoData
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
-import com.wssg.lib.base.net.DataState
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*
-import xyz.doikki.videoplayer.player.AbstractPlayer
+import xyz.doikki.videoplayer.player.AndroidMediaPlayer
+import xyz.doikki.videoplayer.player.VideoView
 import java.util.*
 
 /**
@@ -30,18 +31,21 @@ import java.util.*
  */
 class PlayVideoActivity : BaseVmActivity<HomeFragmentViewModel>(isCancelStatusBar = false) {
     private val videoView
-            by R.id.vv_activity_playVideo.view<xyz.doikki.videoplayer.player.VideoView<AbstractPlayer>>()
+            by R.id.vv_activity_playVideo.view<xyz.doikki.videoplayer.player.VideoView<AndroidMediaPlayer>>()
     private val titleTv by R.id.tv_playVideo_title.view<TextView>()
     private val subTitleTv by R.id.tv_playVideo_subtitle.view<TextView>()
     private val descriptionTv by R.id.tv_playVideo_description.view<TextView>()
+    private val collectionTv by R.id.tv_playVideo_agree.view<TextView>()
+    private val shareTv by R.id.tv_playVideo_share.view<TextView>()
+    private val commentTv by R.id.tv_playVideo_comment.view<TextView>()
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
         cancelStatusBar()
-        val videoId = intent.getStringExtra("videoId")
-        initVideoPlayer()
-        viewModel.getVideoInfo(videoId!!)
+        val videoBean = intent.getSerializableExtra("videoBean") as VideoInfoData
+        initVideoPlayer(videoBean)
     }
 
     private fun cancelStatusBar() {
@@ -60,7 +64,7 @@ class PlayVideoActivity : BaseVmActivity<HomeFragmentViewModel>(isCancelStatusBa
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
-    private fun initVideoPlayer() {
+    private fun initVideoPlayer(videoDetailBean: VideoInfoData) {
 
         val controller = StandardVideoController(this)
         //根据屏幕方向自动进入/退出全屏
@@ -89,24 +93,23 @@ class PlayVideoActivity : BaseVmActivity<HomeFragmentViewModel>(isCancelStatusBa
         controller.addControlComponent(vodControlView)
 
         videoView.setVideoController(controller)
-
-        viewModel.testLiveData.observe(this) {
-            if (it.dataState == DataState.STATE_SUCCESS) {
-                videoView.release()
-                videoView.setUrl(it.itemList!![1].data.playUrl)
-                titleView.setTitle(it.itemList!![1].data.title)
-                portraitTitleView.setTitle(it.itemList!![1].data.title)
-                Glide.with(this)
-                    .load(it.itemList!![1].data.cover.feed)
-                    .into(thumb)
-                titleTv.text = it.itemList!![1].data.title
-                subTitleTv.text = "#${it.itemList!![1].data.category} ${
-                    SimpleDateFormat("/ yyyy/MM/dd HH:mm").format(Date(it.itemList!![1].data.releaseTime))
-                }"
-                descriptionTv.text = it.itemList!![1].data.description
-                videoView.start()
-            }
-        }
+        videoView.setScreenScaleType(VideoView.SCREEN_SCALE_16_9)
+        videoView.setUrl(videoDetailBean.playUrl)
+        titleView.setTitle(videoDetailBean.title)
+        portraitTitleView.setTitle(videoDetailBean.title)
+        Glide.with(this)
+            .load(videoDetailBean.coverUrl)
+            .into(thumb)
+        titleTv.text = videoDetailBean.title
+        subTitleTv.text = "#${videoDetailBean.kind} ${
+            SimpleDateFormat("/ yyyy/MM/dd HH:mm").format(Date(videoDetailBean.releaseDate))
+        }"
+        descriptionTv.text = videoDetailBean.description
+        collectionTv.text = videoDetailBean.consumption.collectionCount.toString()
+        shareTv.text = videoDetailBean.consumption.shareCount.toString()
+        commentTv.text = videoDetailBean.consumption.replyCount.toString()
+        videoView.release()
+        videoView.start()
     }
 
     override fun onPause() {

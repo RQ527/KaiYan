@@ -9,7 +9,7 @@ import java.io.Serializable
  * @date 2022/7/14
  * @Description:
  */
-data class VideoMask(
+data class VideoMaskBean(
     val adExist: Boolean,
     val count: Int,
     val itemList: List<Item>,

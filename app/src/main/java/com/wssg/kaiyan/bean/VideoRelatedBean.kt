@@ -10,7 +10,7 @@ import java.io.Serializable
  * @Description:
  */
 
-data class VideoInfo(
+data class VideoRelatedBean(
     val adIndex: Long,
     val `data`: Data,
     val id: Long,

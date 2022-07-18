@@ -21,5 +21,5 @@ object BuildConfig {
     const val glide = "com.github.bumptech.glide:glide:4.13.2"
     const val glideAnnotation = "com.github.bumptech.glide:compiler:4.13.2"
     const val paging = "androidx.paging:paging-runtime-ktx:3.0.0-beta03"
-
+    const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
 }

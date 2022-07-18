@@ -22,7 +22,7 @@ class MineFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_mine,null)
-        return view
+        return inflater.inflate(R.layout.fragment_mine,null)
+
     }
 }

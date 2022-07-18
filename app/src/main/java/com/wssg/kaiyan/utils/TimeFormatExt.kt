@@ -14,7 +14,7 @@ fun Int.durationToStr(): String {
         if (minute<10) "0$minute:0$seconds"
         else "$minute:0$seconds"
     }else{
-        if (minute<0) "0$minute:$seconds"
+        if (minute<10) "0$minute:$seconds"
         else "$minute:$seconds"
     }
 }

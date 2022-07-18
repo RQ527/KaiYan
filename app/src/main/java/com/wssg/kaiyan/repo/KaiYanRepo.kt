@@ -3,11 +3,10 @@ package com.wssg.kaiyan.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.wssg.kaiyan.adapter.HomePagingResource
-import com.wssg.kaiyan.bean.VideoDetailBean
-import com.wssg.kaiyan.net.HomeService
-import com.wssg.kaiyan.net.PlayVideoService
-import com.wssg.lib.base.net.RetrofitClient
+import com.wssg.kaiyan.adapter.CommunityPagingSource
+import com.wssg.kaiyan.adapter.HomePagingSource
+import com.wssg.kaiyan.bean.CommunityData
+import com.wssg.kaiyan.bean.VideoInfoData
 import com.wssg.lib.base.base.BaseRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -19,18 +18,18 @@ import kotlinx.coroutines.flow.Flow
  * @Description:
  */
 object KaiYanRepo : BaseRepository() {
-    fun getHomeData() =
-        executeResp { RetrofitClient.getService(HomeService::class.java).getHomeData("0","false","0") }
-
-    fun getVideoInfo(id: String) =
-        executeResp { RetrofitClient.getService(PlayVideoService::class.java).getVideoInfo(id) }
-
-    fun getHomePagingData(): Flow<PagingData<VideoDetailBean>> {
-        return Pager(config = PagingConfig(
+    fun getHomePagingData(): Flow<PagingData<VideoInfoData>> =
+        Pager(config = PagingConfig(
             pageSize = 10,
-            initialLoadSize = 10,
-            prefetchDistance = 1
+            prefetchDistance = 10,
         ),
-            pagingSourceFactory = { HomePagingResource() }).flow
-    }
+            pagingSourceFactory = { HomePagingSource() }).flow
+
+    fun getCommunityPagingData(): Flow<PagingData<CommunityData>> =
+        Pager(config = PagingConfig(
+            pageSize = 10,
+            prefetchDistance = 2
+        ),
+            pagingSourceFactory = { CommunityPagingSource() }).flow
+
 }

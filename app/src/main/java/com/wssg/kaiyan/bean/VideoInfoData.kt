@@ -1,5 +1,7 @@
 package com.wssg.kaiyan.bean
 
+import java.io.Serializable
+
 /**
  * ...
  * @author 1799796122 (Ran Sixiang)
@@ -7,7 +9,7 @@ package com.wssg.kaiyan.bean
  * @date 2022/7/16
  * @Description:
  */
-data class VideoDetailBean(
+data class VideoInfoData(
     val id: Int,
     val playUrl: String,
     val coverUrl: String,
@@ -20,11 +22,11 @@ data class VideoDetailBean(
     val authorHeader: String,
     val duration:Int,
     val releaseDate:Long,
-    val bannerData:List<VideoDetailBean>?
-) {
+    val bannerData:List<VideoInfoData>?
+):Serializable {
     data class Consumption(
         val collectionCount: Int,
         val shareCount: Int,
         val replyCount: Int,
-    )
+    ):Serializable
 }

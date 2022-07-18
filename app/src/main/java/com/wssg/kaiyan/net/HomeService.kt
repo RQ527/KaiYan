@@ -1,9 +1,8 @@
 package com.wssg.kaiyan.net
 
-import com.wssg.kaiyan.bean.HomeBean
+import com.wssg.kaiyan.bean.HomeVideoBean
 import com.wssg.lib.base.base.BaseResp
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -19,6 +18,6 @@ interface HomeService {
         @Query("page") page: String,
         @Query("isTag") isTag: String,
         @Query("adIndex") adIndex: String
-    ): BaseResp<HomeBean>
+    ): BaseResp<HomeVideoBean>
 
 }
