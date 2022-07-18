@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
  * @date 2022/7/16
- * @Description:
+ * @Description: //banner切换动画
  */
 class BannerTranAnim : ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {

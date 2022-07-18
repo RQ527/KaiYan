@@ -5,7 +5,7 @@ package com.wssg.kaiyan.utils
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
  * @date 2022/7/16
- * @Description:
+ * @Description:视频时长转换
  */
 fun Int.durationToStr(): String {
     val seconds = this % 60

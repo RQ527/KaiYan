@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -20,8 +19,8 @@
         app:tabGravity="center"
         app:tabIndicatorColor="#272727"
         app:tabIndicatorFullWidth="false"
-        app:tabPaddingEnd="25dp"
-        app:tabPaddingStart="25dp"
+        app:tabPaddingEnd="45dp"
+        app:tabPaddingStart="45dp"
         app:tabRippleColor="@null" />
 
     <androidx.viewpager2.widget.ViewPager2

@@ -19,7 +19,7 @@ import xyz.doikki.videoplayer.util.PlayerUtils
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
  * @date 2022/7/15
- * @Description:
+ * @Description:结合第三方库给视频播放加一个自定义的title
  */
 class PortraitTitleView @JvmOverloads constructor(
     context: Context,
@@ -32,7 +32,7 @@ class PortraitTitleView @JvmOverloads constructor(
 
     init {
         visibility = GONE
-        LayoutInflater.from(context).inflate(R.layout.video_portait_title, this, true)
+        LayoutInflater.from(context).inflate(R.layout.video_portait_title, this, true)//加载布局
         val back = findViewById<ImageView>(R.id.btn_video_portrait_title)
         back.setOnClickListener {
             val activity = PlayerUtils.scanForActivity(context)

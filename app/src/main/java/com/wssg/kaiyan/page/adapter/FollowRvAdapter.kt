@@ -69,6 +69,9 @@ class FollowRvAdapter :
                 agreeTv = findViewById(R.id.tv_rvItemFollow_agree)
                 shareTv = findViewById(R.id.tv_rvItemFollow_share)
                 commentTv = findViewById(R.id.tv_rvItemFollow_comment)
+                coverIv.setOnClickListener {
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!)
+                }
             }
         }
     }

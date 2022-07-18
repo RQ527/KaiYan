@@ -1,7 +1,6 @@
 package com.wssg.lib.base.widget.banner
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +22,6 @@ class BannerAdapter(private val urls: List<String>) :
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_banner,parent, false)
-//        view.layoutParams = ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.MATCH_PARENT
-//        )
         return InnerHolder(view)
     }
 
@@ -44,7 +39,7 @@ class BannerAdapter(private val urls: List<String>) :
         init {
             imageView = view.findViewById(R.id.iv_banner_item)
             imageView.setOnClickListener {
-                listener?.dispose(adapterPosition)
+                listener?.dispose(absoluteAdapterPosition)
             }
         }
     }

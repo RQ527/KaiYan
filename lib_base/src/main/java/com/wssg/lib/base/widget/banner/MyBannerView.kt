@@ -20,7 +20,7 @@ import com.wssg.lib.base.R
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
  * @date 2022/7/15
- * @Description:
+ * @Description:不能说封装吧，算是包装，方便调用而已，banner实现思路是vp+handler
  */
 class MyBannerView @JvmOverloads constructor(
     context: Context,
@@ -31,10 +31,11 @@ class MyBannerView @JvmOverloads constructor(
     private var llPoint: LinearLayout
     private var vpBanner: ViewPager2
     private var tvTitle: TextView
-    private var data: List<BannerBean>? = null
-    private val bannerHandler = BannerHandler()
+    private var data: List<BannerBean>? = null//外部设置数据
+    private val bannerHandler = BannerHandler()//用handler实现固定时间切换vp
 
     init {
+        //加载布局
         LayoutInflater.from(getContext()).inflate(R.layout.banner_layout, this, true)
         vpBanner = findViewById(R.id.vp_banner)
         tvTitle = findViewById(R.id.tv_banner_title)
@@ -45,7 +46,7 @@ class MyBannerView @JvmOverloads constructor(
     private fun initView() {
         val urls = mutableListOf<String>()
 
-        if (data != null) {
+        if (data != null) {//防止没有设置数据
             if (data!!.size > 10) data = data?.subList(0, 11)
             for (i in data!!.indices) {
                 urls.add(data!![i].url)
@@ -58,7 +59,7 @@ class MyBannerView @JvmOverloads constructor(
         vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (data != null) {
+                if (data != null) {//切换选中的小圆点
                     tvTitle.text = data!![position % data!!.size].title
                     llPoint.getChildAt(position % data!!.size)?.isEnabled = true
                     if (position != lastPosition) {
@@ -70,10 +71,10 @@ class MyBannerView @JvmOverloads constructor(
 
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
-                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {//拖动就停止自动滑动
                     bannerHandler.removeCallbacksAndMessages(null)
                 }
-                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {//空闲即开始自动滑动
                     bannerHandler.removeCallbacksAndMessages(null)
                     bannerHandler.sendEmptyMessageDelayed(0, 3000)
                 }
@@ -118,7 +119,7 @@ class MyBannerView @JvmOverloads constructor(
     inner class BannerHandler() : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            vpBanner.setCurrentItem(vpBanner.currentItem+1, 500)
+            vpBanner.setCurrentItem(vpBanner.currentItem+1, 500)//用假托动模拟自动滑动
             sendEmptyMessageDelayed(0, 3000)
         }
     }
@@ -141,7 +142,6 @@ class MyBannerView @JvmOverloads constructor(
     }
 
     fun setOnItemClicked(l: OnItemClicked) {
-        Log.d("RQ", "setOnItemClicked: ")
         this.listener = l
     }
 }
