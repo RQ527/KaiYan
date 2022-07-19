@@ -55,6 +55,7 @@ class MyBannerView @JvmOverloads constructor(
         }
         val adapter = BannerAdapter(urls)
         vpBanner.adapter = adapter
+        vpBanner.offscreenPageLimit = 3
         vpBanner.setPageTransformer(BannerTranAnim())
         vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -85,6 +86,8 @@ class MyBannerView @JvmOverloads constructor(
                 listener?.onLicked(position % urls.size)
             }
         })
+        if (urls.size != 0) vpBanner.currentItem =
+            Int.MAX_VALUE / 2 - (Int.MAX_VALUE / 2) % urls.size //设置从中间位置开始
     }
 
     private fun addPoint(i: Int) {
@@ -119,7 +122,7 @@ class MyBannerView @JvmOverloads constructor(
     inner class BannerHandler() : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            vpBanner.setCurrentItem(vpBanner.currentItem+1, 500)//用假托动模拟自动滑动
+            vpBanner.setCurrentItem(vpBanner.currentItem + 1, 500)//用假托动模拟自动滑动
             sendEmptyMessageDelayed(0, 3000)
         }
     }

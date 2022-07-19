@@ -30,7 +30,7 @@ class BannerAdapter(private val urls: List<String>) :
             Glide.with(holder.itemView).load(urls[position % urls.size]).into(holder.imageView)
     }
 
-    override fun getItemCount(): Int = Int.MAX_VALUE
+    override fun getItemCount(): Int = Int.MAX_VALUE//设置成无限翻滚
 
     inner class InnerHolder(view: View) :
         RecyclerView.ViewHolder(view) {
