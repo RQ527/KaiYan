@@ -7,18 +7,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wssg.kaiyan.R
+import com.wssg.kaiyan.model.bean.CategoryBean
 import com.wssg.kaiyan.model.bean.VideoInfoData
+import com.wssg.kaiyan.page.adapter.CategoriesRvAdapter
 import com.wssg.kaiyan.page.adapter.CommunityRvAdapter
 import com.wssg.kaiyan.page.adapter.FollowRvAdapter
 import com.wssg.kaiyan.page.adapter.PagingFooterAdapter
 import com.wssg.kaiyan.page.ui.activity.PlayVideoActivity
 import com.wssg.kaiyan.page.viewmodel.FindFragmentViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmFragment
+import com.wssg.lib.base.net.DataState
 
 /**
  * ...
@@ -63,6 +67,25 @@ class InnerFindFragment : BaseVmFragment<FindFragmentViewModel>() {
                     LinearLayoutManager(requireContext())
                 }
                 1 -> {
+                    var adapter: CategoriesRvAdapter
+                    viewModel.allCategories.observe(requireActivity()) {
+                        if (it.dataState == DataState.STATE_SUCCESS) {
+                            adapter =
+                                CategoriesRvAdapter(it.itemList!!.filter { it.data.title != "" })
+                            recyclerView.adapter = adapter
+                            adapter.setOnClickedListener(object :
+                                CategoriesRvAdapter.OnClickedListener {
+                                override fun onClicked(categoryBean: CategoryBean) {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "$categoryBean",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            })
+                        }
+                    }
+                    viewModel.getAllCategories()
                     GridLayoutManager(requireContext(), 2)
                 }
                 2 -> {

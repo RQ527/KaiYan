@@ -7,8 +7,10 @@ import com.wssg.kaiyan.model.pagingsource.CommunityPagingSource
 import com.wssg.kaiyan.model.pagingsource.HomePagingSource
 import com.wssg.kaiyan.model.bean.CommunityData
 import com.wssg.kaiyan.model.bean.VideoInfoData
+import com.wssg.kaiyan.model.netservice.CategoriesService
 import com.wssg.kaiyan.model.pagingsource.FollowPagingSource
 import com.wssg.lib.base.base.BaseRepository
+import com.wssg.lib.base.net.RetrofitClient
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -24,4 +26,7 @@ object KaiYanRepo : BaseRepository() {
     fun getCommunityPagingData() = getPagingData { CommunityPagingSource() }
 
     fun getFollowPagingData() = getPagingData { FollowPagingSource() }
+
+    fun getAllCategories() =
+        executeResp { RetrofitClient.getService(CategoriesService::class.java).getAllCategories() }
 }
