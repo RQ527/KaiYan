@@ -15,6 +15,7 @@ import com.wssg.kaiyan.page.viewmodel.HomeFragmentViewModel
 import com.wssg.kaiyan.widget.view.PortraitTitleView
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.VideoInfoData
+import com.wssg.kaiyan.page.viewmodel.PlayVideoActivityViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*
@@ -29,7 +30,7 @@ import java.util.*
  * @date 2022/7/15
  * @Description:
  */
-class PlayVideoActivity : BaseVmActivity<HomeFragmentViewModel>(isCancelStatusBar = false) {
+class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelStatusBar = false) {
     private val videoView
             by R.id.vv_activity_playVideo.view<xyz.doikki.videoplayer.player.VideoView<AndroidMediaPlayer>>()
     private val titleTv by R.id.tv_playVideo_title.view<TextView>()

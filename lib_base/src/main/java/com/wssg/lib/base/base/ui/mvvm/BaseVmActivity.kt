@@ -20,7 +20,7 @@ abstract class BaseVmActivity<VM : ViewModel>(
     ViewModelProvider(
       this,
       ViewModelProvider.AndroidViewModelFactory(this.application)
-    ).get(vmClass)
+    )[vmClass]
   }
   fun <T : View> Int.view() = BindView<T>(this, BindView.GetActivity { this@BaseVmActivity })
 }

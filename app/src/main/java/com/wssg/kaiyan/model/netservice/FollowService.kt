@@ -18,5 +18,5 @@ interface FollowService {
         @Query("start") start: String,
         @Query("num") num: String,
         @Query("newest") newest: String
-    ):BaseResp<FollowBean>
+    ):BaseResp<List<FollowBean>>
 }

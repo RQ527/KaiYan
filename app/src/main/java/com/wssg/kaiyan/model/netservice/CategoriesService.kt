@@ -1,7 +1,6 @@
 package com.wssg.kaiyan.model.netservice
 
 import com.wssg.kaiyan.model.bean.CategoryBean
-import com.wssg.lib.base.base.BaseResp
 import retrofit2.http.GET
 
 /**
@@ -12,6 +11,6 @@ import retrofit2.http.GET
  * @Description:
  */
 interface CategoriesService {
-    @GET("/api/v4/categories/all")
-    suspend fun getAllCategories():BaseResp<CategoryBean>
+    @GET("/api/v4/categories")
+    suspend fun getCategories():List<CategoryBean>
 }

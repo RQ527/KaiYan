@@ -18,6 +18,6 @@ interface HomeService {
         @Query("page") page: String,
         @Query("isTag") isTag: String,
         @Query("adIndex") adIndex: String
-    ): BaseResp<HomeVideoBean>
+    ): BaseResp<List<HomeVideoBean>>
 
 }

@@ -15,8 +15,8 @@ import retrofit2.http.Query
  */
 interface PlayVideoService {
     @POST("api/v4/video/related")
-    suspend fun getVideoInfo(@Query("id") id: String): BaseResp<VideoRelatedBean>
+    suspend fun getVideoInfo(@Query("id") id: String): BaseResp<List<VideoRelatedBean>>
 
     @POST("api/v2/replies/video")
-    suspend fun getVideoMask(@Query("videoId") videoId: String): BaseResp<VideoMaskBean>
+    suspend fun getVideoMask(@Query("videoId") videoId: String): BaseResp<List<VideoMaskBean>>
 }

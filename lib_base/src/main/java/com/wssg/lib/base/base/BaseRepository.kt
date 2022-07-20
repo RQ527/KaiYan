@@ -5,8 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.wssg.lib.base.net.DataState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 
 /**
  * ...
@@ -21,29 +20,23 @@ abstract class BaseRepository {
         block: suspend () -> BaseResp<T>
     ): Flow<BaseResp<T>> {
         return flow {
-            var resp = BaseResp<T>()
-            resp.dataState = DataState.STATE_LOADING
-            emit(resp)
-            try {
-                resp = block.invoke()
-                if (resp.itemList == null) {
-                    resp.dataState = DataState.STATE_FAILED
-                } else {
-                    resp.dataState = DataState.STATE_SUCCESS
-                }
-                emit(resp)
-            } catch (e: Exception) {
-                resp.dataState = DataState.STATE_ERROR
-                resp.error = e
-                emit(resp)
-            } finally {
-                resp.dataState = DataState.STATE_COMPLETED
-                emit(resp)
+            val resp = block()
+            if (resp.itemList == null) {
+                resp.dataState = DataState.STATE_FAILED
+            } else {
+                resp.dataState = DataState.STATE_SUCCESS
             }
+            emit(resp)
+        }.onStart {
+            emit(BaseResp(dataState = DataState.STATE_LOADING))
+        }.onCompletion {
+            emit(BaseResp(dataState = DataState.STATE_COMPLETED))
+        }.catch {
+            emit(BaseResp(dataState = DataState.STATE_ERROR))
         }
     }
 
-    fun <T : Any> getPagingData(pagingSourceFactory: ()->PagingSource<Int, T>): Flow<PagingData<T>>{
+    fun <T : Any> getPagingData(pagingSourceFactory: () -> PagingSource<Int, T>): Flow<PagingData<T>> {
         return Pager(config = PagingConfig(
             pageSize = 10,
             prefetchDistance = 10

@@ -17,5 +17,5 @@ interface CommunityService {
     suspend fun getCommunityData(
         @Query("startScore") page: String,
         @Query("pageCount") isTag: String,
-    ): BaseResp<CommunityBean>
+    ): BaseResp<List<CommunityBean>>
 }

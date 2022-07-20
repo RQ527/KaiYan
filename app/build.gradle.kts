@@ -41,5 +41,8 @@ dependencies {
 
     implementation("xyz.doikki.android.dkplayer:player-ijk:3.3.6")
     implementation("xyz.doikki.android.dkplayer:dkplayer-ui:3.3.6")
+    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
 }

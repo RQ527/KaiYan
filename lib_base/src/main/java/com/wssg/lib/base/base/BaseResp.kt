@@ -12,7 +12,7 @@ import java.io.Serializable
  * @Description:
  */
 class BaseResp<T>(
-    var itemList: List<T>? = null,
+    var itemList: T? = null,
     var count: Int = 0,
     var nextPageUrl: String? = null,
     var dataState: DataState? = null,

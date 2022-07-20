@@ -3,6 +3,7 @@ package com.wssg.kaiyan.model.pagingsource
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.wssg.kaiyan.model.bean.CommunityBean
 import com.wssg.kaiyan.model.bean.CommunityData
 import com.wssg.kaiyan.model.netservice.CommunityService
 import com.wssg.lib.base.net.RetrofitClient

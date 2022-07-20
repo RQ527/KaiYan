@@ -40,15 +40,15 @@ class CategoriesRvAdapter(private var data: List<CategoryBean>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.run {
-            categoryTv.text = data[position].data.title
-            Glide.with(itemView).load(data[position].data.image).into(coverIv)
+            categoryTv.text = data[position].name
+            Glide.with(itemView).load(data[position].bgPicture).into(coverIv)
         }
     }
 
     override fun getItemCount(): Int = data.size
 
     interface OnClickedListener {
-        fun onClicked(categoryBean: CategoryBean)
+        fun onClicked(categoryData: CategoryBean)
     }
 
     private var listener: OnClickedListener? = null

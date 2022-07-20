@@ -71,14 +71,14 @@ class InnerFindFragment : BaseVmFragment<FindFragmentViewModel>() {
                     viewModel.allCategories.observe(requireActivity()) {
                         if (it.dataState == DataState.STATE_SUCCESS) {
                             adapter =
-                                CategoriesRvAdapter(it.itemList!!.filter { it.data.title != "" })
+                                CategoriesRvAdapter(it.itemList!!)
                             recyclerView.adapter = adapter
                             adapter.setOnClickedListener(object :
                                 CategoriesRvAdapter.OnClickedListener {
-                                override fun onClicked(categoryBean: CategoryBean) {
+                                override fun onClicked(categoryData: CategoryBean) {
                                     Toast.makeText(
                                         requireContext(),
-                                        "$categoryBean",
+                                        "$categoryData",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }

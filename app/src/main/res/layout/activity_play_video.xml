@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray"
@@ -60,14 +60,13 @@
             android:padding="10dp">
 
 
-
             <TextView
                 android:id="@+id/tv_playVideo_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:paddingStart="0dp"
                 android:gravity="center"
+                android:paddingStart="0dp"
                 android:text="121"
                 android:textColor="@color/white"
                 app:drawableLeftCompat="@drawable/agree"
@@ -82,7 +81,6 @@
                 android:drawableLeft="@drawable/share"
                 android:text="121"
                 android:textColor="@color/white" />
-
 
 
             <TextView

@@ -10,6 +10,7 @@ import com.wssg.kaiyan.model.bean.VideoInfoData
 import com.wssg.kaiyan.model.netservice.CategoriesService
 import com.wssg.kaiyan.model.pagingsource.FollowPagingSource
 import com.wssg.lib.base.base.BaseRepository
+import com.wssg.lib.base.base.BaseResp
 import com.wssg.lib.base.net.RetrofitClient
 import kotlinx.coroutines.flow.Flow
 
@@ -27,6 +28,10 @@ object KaiYanRepo : BaseRepository() {
 
     fun getFollowPagingData() = getPagingData { FollowPagingSource() }
 
-    fun getAllCategories() =
-        executeResp { RetrofitClient.getService(CategoriesService::class.java).getAllCategories() }
+    fun getCategories() =
+        executeResp {
+            val data = RetrofitClient.getService(CategoriesService::class.java).getCategories()
+            BaseResp(itemList = data)//没办法，接口返回的外层字段突然改了，导致封装的外层也得改，只能包装一下了
+        }
+
 }

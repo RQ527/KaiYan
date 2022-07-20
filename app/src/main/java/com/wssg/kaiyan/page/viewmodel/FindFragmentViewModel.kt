@@ -1,10 +1,11 @@
 package com.wssg.kaiyan.page.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.wssg.kaiyan.model.bean.CategoryBean
-import com.wssg.kaiyan.model.bean.CommunityData
+
 import com.wssg.kaiyan.model.repo.KaiYanRepo
 import com.wssg.lib.base.base.BaseResp
 import com.wssg.lib.base.base.BaseViewModel
@@ -17,8 +18,8 @@ import com.wssg.lib.base.base.BaseViewModel
  * @Description:
  */
 class FindFragmentViewModel : BaseViewModel() {
-    private val _allCategories = MutableLiveData<BaseResp<CategoryBean>>()
-    val allCategories
+    private val _allCategories = MutableLiveData<BaseResp<List<CategoryBean>>>()
+    val allCategories:LiveData<BaseResp<List<CategoryBean>>>
         get() = _allCategories
 
     fun getCommunityData() =
@@ -27,8 +28,8 @@ class FindFragmentViewModel : BaseViewModel() {
     fun getFollowData() =
         KaiYanRepo.getFollowPagingData().cachedIn(viewModelScope)
 
-    fun getAllCategories() =
-        launch(KaiYanRepo.getAllCategories()) {
-            _allCategories.value = it
-        }
+
+    fun getAllCategories() = launch(KaiYanRepo.getCategories()){
+        _allCategories.value = it
+    }
 }
