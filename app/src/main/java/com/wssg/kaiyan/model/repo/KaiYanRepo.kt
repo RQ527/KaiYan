@@ -37,4 +37,7 @@ object KaiYanRepo : BaseRepository() {
 
     fun getCategorySquarePagingData(id: Int) =
         getPagingData { CategorySquarePagingSource(id) }
+
+    fun getSearchResultPagingData(query: String) =
+        getPagingData { SearchResultPagingSource(query) }
 }
