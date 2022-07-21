@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_rvItemCategorySquare_header"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_launcher_background"
+        app:shapeAppearance="@style/CircleStyle" />
+
+    <TextView
+        android:id="@+id/tv_rvItemCategorySquare_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_rvItemCategorySquare_header"
+        android:text="这是昵称"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rvItemCategorySquare_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_rvItemCategorySquare_header"
+        android:layout_toEndOf="@id/iv_rvItemCategorySquare_header"
+        android:text="这是发布时间"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_rvItemCategorySquare_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_rvItemCategorySquare_header"
+        android:layout_marginTop="6dp"
+        android:text="这是描述哈哈哈哈哈哈"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_rvItemCategorySquare_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_below="@id/tv_rvItemCategorySquare_description"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:id="@+id/iv_rvItemCategorySquare_pic"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+        <View
+            android:id="@+id/view_rvItemCategorySquare_video"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/video" />
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/ll_rvItemCategorySquare_consumption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cv_rvItemCategorySquare_pic"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_rvItemCategorySquare_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="121"
+            android:textColor="@color/black"
+            app:drawableLeftCompat="@drawable/agree_black" />
+
+        <TextView
+            android:id="@+id/tv_rvItemCategorySquare_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="121"
+            android:textColor="@color/black"
+            app:drawableLeftCompat="@drawable/comment_black" />
+
+        <TextView
+            android:id="@+id/tv_rvItemCategorySquare_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="121"
+            android:textColor="@color/black"
+            app:drawableLeftCompat="@drawable/share_black" />
+    </LinearLayout>
+</RelativeLayout>

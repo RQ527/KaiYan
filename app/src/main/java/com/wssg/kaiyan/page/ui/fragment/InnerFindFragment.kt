@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +14,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.CategoryBean
 import com.wssg.kaiyan.model.bean.VideoInfoData
-import com.wssg.kaiyan.page.adapter.CategoriesRvAdapter
-import com.wssg.kaiyan.page.adapter.CommunityRvAdapter
-import com.wssg.kaiyan.page.adapter.FollowRvAdapter
-import com.wssg.kaiyan.page.adapter.PagingFooterAdapter
+import com.wssg.kaiyan.page.adapter.*
+import com.wssg.kaiyan.page.ui.activity.CategoryActivity
 import com.wssg.kaiyan.page.ui.activity.PlayVideoActivity
-import com.wssg.kaiyan.page.viewmodel.FindFragmentViewModel
+import com.wssg.kaiyan.page.viewmodel.InnerFindFragmentViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmFragment
 import com.wssg.lib.base.net.DataState
 
@@ -31,7 +28,7 @@ import com.wssg.lib.base.net.DataState
  * @date 2022/7/17
  * @Description:
  */
-class InnerFindFragment : BaseVmFragment<FindFragmentViewModel>() {
+class InnerFindFragment : BaseVmFragment<InnerFindFragmentViewModel>() {
     private var position: Int = 0
     private val recyclerView by R.id.rv_innerFindFrag.view<RecyclerView>()
 
@@ -76,11 +73,12 @@ class InnerFindFragment : BaseVmFragment<FindFragmentViewModel>() {
                             adapter.setOnClickedListener(object :
                                 CategoriesRvAdapter.OnClickedListener {
                                 override fun onClicked(categoryData: CategoryBean) {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "$categoryData",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    startActivity(
+                                        Intent(
+                                            requireContext(),
+                                            CategoryActivity::class.java
+                                        ).putExtra("categoryBean", categoryData)
+                                    )
                                 }
                             })
                         }
@@ -94,6 +92,27 @@ class InnerFindFragment : BaseVmFragment<FindFragmentViewModel>() {
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getCommunityData(), adapter)
                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                }
+                3 -> {
+                    val categoryBean =
+                        requireArguments().getSerializable("categoryBean")!! as CategoryBean
+                    val adapter = CategoryRecRvAdapter()
+                    recyclerView.adapter =
+                        adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
+                    bindAdapterToPaging(
+                        viewModel.getCategoryRecommendData(categoryBean.id),
+                        adapter
+                    )
+                    LinearLayoutManager(requireContext())
+                }
+                4 -> {
+                    val categoryBean =
+                        requireArguments().getSerializable("categoryBean")!! as CategoryBean
+                    val adapter = CategorySquareRvAdapter()
+                    recyclerView.adapter =
+                        adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
+                    bindAdapterToPaging(viewModel.getCategorySquareData(categoryBean.id), adapter)
+                    LinearLayoutManager(requireContext())
                 }
                 else -> error("inner find fragment 位置错误")
             }

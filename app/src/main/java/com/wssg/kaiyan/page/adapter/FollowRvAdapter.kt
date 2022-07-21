@@ -3,7 +3,6 @@ package com.wssg.kaiyan.page.adapter
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wssg.kaiyan.R
-import com.wssg.kaiyan.model.bean.CommunityData
 import com.wssg.kaiyan.model.bean.VideoInfoData
 import java.util.*
 

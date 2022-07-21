@@ -12,7 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -64,6 +70,22 @@ abstract class BaseActivity(
     val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
     windowInsetsController?.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
     window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
+  }
+
+  /**
+   * 将从paging获取的数据提交至adapter
+   */
+  protected fun <T : Any, V : RecyclerView.ViewHolder, A : PagingDataAdapter<T, V>> bindAdapterToPaging(
+    data: Flow<PagingData<T>>,
+    pagingAdapter: A
+  ) {
+    lifecycleScope.launch {
+      repeatOnLifecycle(Lifecycle.State.CREATED) {
+        data.collect {
+          pagingAdapter.submitData(it)
+        }
+      }
+    }
   }
 
 }

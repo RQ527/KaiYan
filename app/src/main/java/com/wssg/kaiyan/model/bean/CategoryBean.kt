@@ -1,5 +1,7 @@
 package com.wssg.kaiyan.model.bean
 
+import java.io.Serializable
+
 /**
  * ...
  * @author 1799796122 (Ran Sixiang)
@@ -17,4 +19,4 @@ data class CategoryBean(
     val id: Int,
     val name: String,
     val tagId: Int
-)
+):Serializable
