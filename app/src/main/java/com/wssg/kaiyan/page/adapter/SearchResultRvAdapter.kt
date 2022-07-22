@@ -1,5 +1,6 @@
 package com.wssg.kaiyan.page.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,11 +98,12 @@ class SearchResultRvAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        Log.d("RQ", "onCreateViewHolder: $viewType")
         LayoutInflater.from(parent.context).run {
             return when (viewType) {
-                0 -> AuthorViewHolder(inflate(R.layout.item_search_author_rv, parent, false))
-                1 -> UserViewHolder(inflate(R.layout.item_search_use_rv, parent, false))
-                2 -> VideoViewHolder(inflate(R.layout.item_search_video_rv, parent, false))
+                1 -> AuthorViewHolder(inflate(R.layout.item_search_author_rv, parent, false))
+                2 -> UserViewHolder(inflate(R.layout.item_search_use_rv, parent, false))
+                3 -> VideoViewHolder(inflate(R.layout.item_search_video_rv, parent, false))
                 else -> error("onCreateHolder类型查找错误")
             }
         }
@@ -110,8 +112,8 @@ class SearchResultRvAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)!!.run {
             holder.run {
-                when (itemViewType) {
-                    0 -> {
+                when (type) {
+                    "author" -> {
                         this as AuthorViewHolder
                         if (position != 0)
                             if (getItem(position - 1)!!.type == type) typeTv.visibility = View.GONE
@@ -119,14 +121,14 @@ class SearchResultRvAdapter :
                         nameTv.text = title
                         descriptionTv.text = authorDescription
                     }
-                    1 -> {
+                    "user" -> {
                         this as UserViewHolder
                         if (position != 0)
                             if (getItem(position - 1)!!.type == type) typeTv.visibility = View.GONE
                         Glide.with(itemView).load(imageUrl).into(coverIv)
                         nameTv.text = title
                     }
-                    2 -> {
+                    "video" -> {
                         this as VideoViewHolder
                         if (position != 0)
                             if (getItem(position - 1)!!.type == type) typeTv.visibility = View.GONE
@@ -138,7 +140,7 @@ class SearchResultRvAdapter :
                             categoryTv.text = kind
                         }
                     }
-                    else -> error("onBindViewHolder类型查找错误")
+                    else -> {}
                 }
             }
         }
@@ -156,10 +158,11 @@ class SearchResultRvAdapter :
 
     override fun getItemViewType(position: Int): Int {
         getItem(position)!!.run {
+            Log.d("RQ", "getItemViewType: $type")
             return when (type) {
-                "author" -> 0
-                "user" -> 1
-                "video" -> 2
+                "author" -> 1
+                "user" -> 2
+                "video" -> 3
                 else -> error("search类型匹配错误")
             }
         }

@@ -33,6 +33,7 @@ class HomePagingSource() : BasePagingSource<VideoInfoData>() {
                     homeData.nextPageUrl!!.length
                 )
             }"
+            if (nextParams.split("&")[0].split("=")[1] == "0") nextParams = ""
             val bannerData = mutableListOf<VideoInfoData>()
             val realData = mutableListOf<VideoInfoData>()
             for (data in homeData.itemList!!) {

@@ -34,9 +34,10 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_play_video.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_search.xml" value="0.2246376811594203" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dialog_play_video_comment.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dkplayer_layout_standard_controller.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_find.xml" value="0.22826086956521738" />
-        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_hot.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_inner_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_mine.xml" value="0.22826086956521738" />
@@ -57,6 +58,7 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_search_use_rv.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_search_user_rv.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_search_video_rv.xml" value="0.2246376811594203" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_video_comment_rv.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_vp_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/toolbar.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/video_portait_title.xml" value="0.2" />
