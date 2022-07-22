@@ -100,7 +100,7 @@ class InnerFindFragment : BaseVmFragment<InnerFindFragmentViewModel>() {
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(
-                        viewModel.getCategoryRecommendData(categoryBean.id),
+                        viewModel.getCategoryRecommendData(categoryBean.tagId),
                         adapter
                     )
                     LinearLayoutManager(requireContext())
@@ -111,7 +111,7 @@ class InnerFindFragment : BaseVmFragment<InnerFindFragmentViewModel>() {
                     val adapter = CategorySquareRvAdapter()
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
-                    bindAdapterToPaging(viewModel.getCategorySquareData(categoryBean.id), adapter)
+                    bindAdapterToPaging(viewModel.getCategorySquareData(categoryBean.tagId), adapter)
                     LinearLayoutManager(requireContext())
                 }
                 else -> error("inner find fragment 位置错误")

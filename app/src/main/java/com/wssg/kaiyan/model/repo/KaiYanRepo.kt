@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import com.wssg.kaiyan.model.bean.CommunityData
 import com.wssg.kaiyan.model.bean.VideoInfoData
 import com.wssg.kaiyan.model.netservice.CategoriesService
+import com.wssg.kaiyan.model.netservice.PlayVideoService
 import com.wssg.kaiyan.model.pagingsource.*
 import com.wssg.lib.base.base.BaseRepository
 import com.wssg.lib.base.base.BaseResp
@@ -40,4 +41,9 @@ object KaiYanRepo : BaseRepository() {
 
     fun getSearchResultPagingData(query: String) =
         getPagingData { SearchResultPagingSource(query) }
+
+    fun getVideoInfoData(id: Int) =
+        executeResp {
+            RetrofitClient.getService(PlayVideoService::class.java).getVideoInfo(id.toString())
+        }
 }

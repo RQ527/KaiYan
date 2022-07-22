@@ -22,7 +22,7 @@ data class VideoInfoData(
     val authorHeader: String,
     val duration:Int,
     val releaseDate:Long,
-    val bannerData:List<VideoInfoData>?
+    var bannerData:List<VideoInfoData>?
 ):Serializable {
     data class Consumption(
         val collectionCount: Int,

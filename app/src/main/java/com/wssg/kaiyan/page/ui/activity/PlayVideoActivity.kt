@@ -1,6 +1,7 @@
 package com.wssg.kaiyan.page.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -10,13 +11,17 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wssg.kaiyan.page.viewmodel.HomeFragmentViewModel
 import com.wssg.kaiyan.widget.view.PortraitTitleView
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.VideoInfoData
+import com.wssg.kaiyan.page.adapter.VideoRelatedRvAdapter
 import com.wssg.kaiyan.page.viewmodel.PlayVideoActivityViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
+import com.wssg.lib.base.net.DataState
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*
 import xyz.doikki.videoplayer.player.AndroidMediaPlayer
@@ -39,6 +44,7 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
     private val collectionTv by R.id.tv_playVideo_agree.view<TextView>()
     private val shareTv by R.id.tv_playVideo_share.view<TextView>()
     private val commentTv by R.id.tv_playVideo_comment.view<TextView>()
+    private val recyclerView by R.id.rv_playVideoActivity.view<RecyclerView>()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,20 +53,61 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
         cancelStatusBar()
         val videoBean = intent.getSerializableExtra("videoBean") as VideoInfoData
         initVideoPlayer(videoBean)
+        initView(videoBean)
     }
 
-    private fun cancelStatusBar() {
-        val window = this.window
-        val decorView = window.decorView
-
-        // 这是 Android 做了兼容的 Compat 包
-        // 注意，使用了下面这个方法后，状态栏不会再有东西占位，
-        // 可以给根布局加上 android:fitsSystemWindows=true
-        // 不同布局该属性效果不同，请给合适的布局添加
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
-        windowInsetsController?.isAppearanceLightStatusBars = false // 设置状态栏字体颜色为白色
-        window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
+    private fun initView(videoInfoData: VideoInfoData) {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        viewModel.videoRelatedData.observe(this) { gottenData ->
+            if (gottenData.dataState == DataState.STATE_SUCCESS) {
+                val realData = mutableListOf<VideoInfoData>()
+                var header = ""
+                //Gson转换的数据类无用的字段嵌套太多了。转换一下
+                gottenData.itemList!!.forEach {
+                    if (it.type == "videoSmallCard")
+                        realData.add(it.data.run {
+                            val vData = VideoInfoData(
+                                id.toInt(),
+                                playUrl,
+                                cover.feed,
+                                title,
+                                category,
+                                description,
+                                VideoInfoData.Consumption(
+                                    consumption.collectionCount.toInt(),
+                                    consumption.shareCount.toInt(),
+                                    consumption.replyCount.toInt()
+                                ),
+                                author.name,
+                                author.description,
+                                author.icon,
+                                duration.toInt(),
+                                releaseTime,
+                                null
+                            )
+                            if (header != "") vData.bannerData =
+                                mutableListOf(vData.copy(kind = header))//用之前携带banner的功能，分别类别
+                            vData
+                        })
+                    header = if (it.type == "textCard") it.data.text else ""
+                }
+                val adapter = VideoRelatedRvAdapter(realData)
+                recyclerView.adapter = adapter
+                adapter.setOnClickedListener(object : VideoRelatedRvAdapter.OnClickedListener {
+                    override fun onClicked(videoInfoData: VideoInfoData) {
+                        startActivity(
+                            Intent(
+                                this@PlayVideoActivity,
+                                PlayVideoActivity::class.java
+                            ).putExtra("videoBean",videoInfoData)
+                        )
+                    }
+                })
+            }
+        }
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.isNestedScrollingEnabled = true
+        viewModel.getVideoRelatedData(videoInfoData.id)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -111,6 +158,20 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
         commentTv.text = videoDetailBean.consumption.replyCount.toString()
         videoView.release()
         videoView.start()
+    }
+
+    private fun cancelStatusBar() {
+        val window = this.window
+        val decorView = window.decorView
+
+        // 这是 Android 做了兼容的 Compat 包
+        // 注意，使用了下面这个方法后，状态栏不会再有东西占位，
+        // 可以给根布局加上 android:fitsSystemWindows=true
+        // 不同布局该属性效果不同，请给合适的布局添加
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
+        windowInsetsController?.isAppearanceLightStatusBars = false // 设置状态栏字体颜色为白色
+        window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
     }
 
     override fun onPause() {
