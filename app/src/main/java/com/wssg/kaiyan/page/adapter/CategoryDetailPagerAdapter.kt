@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wssg.kaiyan.model.bean.CategoryBean
-import com.wssg.kaiyan.page.ui.fragment.InnerFindFragment
+import com.wssg.kaiyan.page.Constant
+import com.wssg.kaiyan.page.ui.fragment.OnlyRvFragment
 
 /**
  * ...
@@ -14,15 +15,24 @@ import com.wssg.kaiyan.page.ui.fragment.InnerFindFragment
  * @date 2022/7/21
  * @Description:
  */
-class CategoryDetailPagerAdapter (_fragmentActivity: FragmentActivity,val categoryBean: CategoryBean) :
+class CategoryDetailPagerAdapter(
+    _fragmentActivity: FragmentActivity,
+    val categoryBean: CategoryBean
+) :
     FragmentStateAdapter(_fragmentActivity) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment =
         Bundle().run {
-            this.putString("kind", (position+3).toString())
+            this.putString(
+                "type", when (position) {
+                    0 -> Constant.CATEGORY_ACTIVITY_RECOMMEND
+                    1 -> Constant.CATEGORY_ACTIVITY_SQUARE
+                    else-> error("CategoryDetailPagerAdapter位置错误")
+                }
+            )
             this.putSerializable("categoryBean", categoryBean)
-            val fragment = InnerFindFragment()
+            val fragment = OnlyRvFragment()
             fragment.arguments = this
             fragment
         }

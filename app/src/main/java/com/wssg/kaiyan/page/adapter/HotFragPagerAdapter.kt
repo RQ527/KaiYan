@@ -11,10 +11,10 @@ import com.wssg.kaiyan.page.ui.fragment.OnlyRvFragment
  * ...
  * @author 1799796122 (Ran Sixiang)
  * @email 1799796122@qq.com
- * @date 2022/7/17
+ * @date 2022/7/22
  * @Description:
  */
-class FindFragPagerAdapter(_fragmentActivity: FragmentActivity) :
+class HotFragPagerAdapter(_fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(_fragmentActivity) {
     override fun getItemCount(): Int = 3
 
@@ -22,10 +22,10 @@ class FindFragPagerAdapter(_fragmentActivity: FragmentActivity) :
         Bundle().run {
             this.putString(
                 "type", when (position) {
-                    0 -> Constant.FIND_FRAGMENT_FOLLOW
-                    1 -> Constant.FIND_FRAGMENT_CATEGORY
-                    2 -> Constant.FIND_FRAGMENT_RECOMMEND
-                    else -> error("FindFragPagerAdapter位置错误")
+                    0 -> Constant.HOT_FRAGMENT_MONTHLY
+                    1 -> Constant.HOT_FRAGMENT_WEEKLY
+                    2 -> Constant.HOT_FRAGMENT_ALL
+                    else -> error("HotFragPagerAdapter位置错误")
                 }
             )
             val fragment = OnlyRvFragment()
@@ -33,4 +33,3 @@ class FindFragPagerAdapter(_fragmentActivity: FragmentActivity) :
             fragment
         }
 }
-

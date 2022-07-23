@@ -20,7 +20,7 @@ import com.wssg.kaiyan.utils.durationToStr
  * @date 2022/7/22
  * @Description:
  */
-class VideoRelatedRvAdapter(private var data: List<VideoInfoData>) :
+class VideoRelatedRvAdapter(var data: List<VideoInfoData>?) :
     RecyclerView.Adapter<VideoRelatedRvAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,7 +38,7 @@ class VideoRelatedRvAdapter(private var data: List<VideoInfoData>) :
                 markTv = findViewById(R.id.tv_rvItemPlayActivity_mark)
                 headerTv = findViewById(R.id.tv_rvItemPlayActivity_header)
                 findViewById<ConstraintLayout>(R.id.cl_rvItemPlayActivity_total).setOnClickListener {
-                    listener?.onClicked(data[absoluteAdapterPosition])
+                    listener?.onClicked(data!![absoluteAdapterPosition])
                 }
             }
         }
@@ -55,7 +55,7 @@ class VideoRelatedRvAdapter(private var data: List<VideoInfoData>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.run {
-            data[position].run {
+            data?.get(position)!!.run {
                 if (bannerData == null) headerTv.visibility = View.GONE else headerTv.run {
                     visibility = View.VISIBLE
                     text = bannerData!![0].kind
@@ -68,7 +68,7 @@ class VideoRelatedRvAdapter(private var data: List<VideoInfoData>) :
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = data?.size ?: 0
 
     interface OnClickedListener {
         fun onClicked(videoInfoData: VideoInfoData)

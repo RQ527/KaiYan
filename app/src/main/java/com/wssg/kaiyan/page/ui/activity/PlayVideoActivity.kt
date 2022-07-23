@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -14,7 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wssg.kaiyan.page.viewmodel.HomeFragmentViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wssg.kaiyan.widget.view.PortraitTitleView
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.VideoInfoData
@@ -45,7 +47,6 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
     private val shareTv by R.id.tv_playVideo_share.view<TextView>()
     private val commentTv by R.id.tv_playVideo_comment.view<TextView>()
     private val recyclerView by R.id.rv_playVideoActivity.view<RecyclerView>()
-
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +57,19 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
         initView(videoBean)
     }
 
-    private fun initView(videoInfoData: VideoInfoData) {
+    @RequiresApi(Build.VERSION_CODES.N)
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
+    private fun initView(videoDetailBean: VideoInfoData) {
+        titleTv.text = videoDetailBean.title
+        subTitleTv.text = "#${videoDetailBean.kind} ${
+            SimpleDateFormat("/ yyyy/MM/dd HH:mm").format(Date(videoDetailBean.releaseDate))
+        }"
+        descriptionTv.text = videoDetailBean.description
+        collectionTv.text = videoDetailBean.consumption.collectionCount.toString()
+        shareTv.text = videoDetailBean.consumption.shareCount.toString()
+        commentTv.text = videoDetailBean.consumption.replyCount.toString()
         recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = VideoRelatedRvAdapter(null)
         viewModel.videoRelatedData.observe(this) { gottenData ->
             if (gottenData.dataState == DataState.STATE_SUCCESS) {
                 val realData = mutableListOf<VideoInfoData>()
@@ -78,9 +90,9 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
                                     consumption.shareCount.toInt(),
                                     consumption.replyCount.toInt()
                                 ),
-                                author.name,
-                                author.description,
-                                author.icon,
+                                author?.name ?: "",
+                                author?.description ?:"",
+                                author?.icon?:"",
                                 duration.toInt(),
                                 releaseTime,
                                 null
@@ -91,27 +103,26 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
                         })
                     header = if (it.type == "textCard") it.data.text else ""
                 }
-                val adapter = VideoRelatedRvAdapter(realData)
+                adapter.data = realData
                 recyclerView.adapter = adapter
-                adapter.setOnClickedListener(object : VideoRelatedRvAdapter.OnClickedListener {
-                    override fun onClicked(videoInfoData: VideoInfoData) {
-                        startActivity(
-                            Intent(
-                                this@PlayVideoActivity,
-                                PlayVideoActivity::class.java
-                            ).putExtra("videoBean",videoInfoData)
-                        )
-                    }
-                })
             }
         }
+        recyclerView.adapter = adapter
+        adapter.setOnClickedListener(object : VideoRelatedRvAdapter.OnClickedListener {
+            override fun onClicked(videoInfoData: VideoInfoData) {
+                startActivity(
+                    Intent(
+                        this@PlayVideoActivity,
+                        PlayVideoActivity::class.java
+                    ).putExtra("videoBean", videoInfoData)
+                )
+            }
+        })
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = true
-        viewModel.getVideoRelatedData(videoInfoData.id)
+        viewModel.getVideoRelatedData(videoDetailBean.id)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun initVideoPlayer(videoDetailBean: VideoInfoData) {
 
         val controller = StandardVideoController(this)
@@ -148,14 +159,6 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
         Glide.with(this)
             .load(videoDetailBean.coverUrl)
             .into(thumb)
-        titleTv.text = videoDetailBean.title
-        subTitleTv.text = "#${videoDetailBean.kind} ${
-            SimpleDateFormat("/ yyyy/MM/dd HH:mm").format(Date(videoDetailBean.releaseDate))
-        }"
-        descriptionTv.text = videoDetailBean.description
-        collectionTv.text = videoDetailBean.consumption.collectionCount.toString()
-        shareTv.text = videoDetailBean.consumption.shareCount.toString()
-        commentTv.text = videoDetailBean.consumption.replyCount.toString()
         videoView.release()
         videoView.start()
     }
