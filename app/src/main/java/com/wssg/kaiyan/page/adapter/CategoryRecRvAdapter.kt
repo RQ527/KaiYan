@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,8 @@ import com.wssg.kaiyan.utils.durationToStr
  * @date 2022/7/20
  * @Description:
  */
-class CategoryRecRvAdapter: PagingDataAdapter<VideoInfoData, CategoryRecRvAdapter.ViewHolder>(COMPARATOR) {
+class CategoryRecRvAdapter :
+    PagingDataAdapter<VideoInfoData, CategoryRecRvAdapter.ViewHolder>(COMPARATOR) {
     companion object {
         private val COMPARATOR =
             object : DiffUtil.ItemCallback<VideoInfoData>() {
@@ -43,11 +45,12 @@ class CategoryRecRvAdapter: PagingDataAdapter<VideoInfoData, CategoryRecRvAdapte
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val coverIv:ImageView
-        val collectionCountTv:TextView
-        val durationTv:TextView
-        val titleTv:TextView
-        val kindTv:TextView
+        val coverIv: ImageView
+        val collectionCountTv: TextView
+        val durationTv: TextView
+        val titleTv: TextView
+        val kindTv: TextView
+
         init {
             view.run {
                 coverIv = findViewById(R.id.iv_rvItemCategoryRec_cover)
@@ -55,6 +58,9 @@ class CategoryRecRvAdapter: PagingDataAdapter<VideoInfoData, CategoryRecRvAdapte
                 durationTv = findViewById(R.id.tv_rvItemCategoryRec_duration)
                 titleTv = findViewById(R.id.tv_rvItemCategoryRec_title)
                 kindTv = findViewById(R.id.tv_rvItemCategoryRec_kind)
+                coverIv.setOnClickListener {
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!,coverIv)
+                }
             }
         }
     }
@@ -79,7 +85,7 @@ class CategoryRecRvAdapter: PagingDataAdapter<VideoInfoData, CategoryRecRvAdapte
     }
 
     interface OnClickedListener {
-        fun onClicked(detailBean: VideoInfoData)
+        fun onClicked(detailBean: VideoInfoData, view: View)
     }
 
     private var listener: OnClickedListener? = null

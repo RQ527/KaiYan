@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.page.adapter.HotFragPagerAdapter
 import com.wssg.kaiyan.page.adapter.HotRankRvAdapter
+import com.wssg.kaiyan.page.ui.anim.FindVPAnimation
+import com.wssg.kaiyan.page.ui.anim.HotVPAnimation
 import com.wssg.lib.base.base.ui.BaseFragment
 
 /**
@@ -22,8 +24,8 @@ import com.wssg.lib.base.base.ui.BaseFragment
  * @Description:
  */
 class HotFragment : BaseFragment() {
-    val tabLayout by R.id.tl_hotFrag_index.view<TabLayout>()
-    val viewPager by R.id.vp_hotFrag.view<ViewPager2>()
+    private val tabLayout by R.id.tl_hotFrag_index.view<TabLayout>()
+    private val viewPager by R.id.vp_hotFrag.view<ViewPager2>()
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -38,12 +40,14 @@ class HotFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewPager.adapter = HotFragPagerAdapter(requireActivity())
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text= when(position){
-                    0->"月排行"
-                    1->"周排行"
-                    2->"总排行"
-                    else -> error("HotFragment的Tab位置匹配错误")
-                }
+            tab.text = when (position) {
+                0 -> "月排行"
+                1 -> "周排行"
+                2 -> "总排行"
+                else -> error("HotFragment的Tab位置匹配错误")
+            }
         }.attach()
+        viewPager.offscreenPageLimit = 2
+        viewPager.setPageTransformer(HotVPAnimation())
     }
 }

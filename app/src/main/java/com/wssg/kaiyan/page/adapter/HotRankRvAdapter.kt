@@ -53,7 +53,7 @@ class HotRankRvAdapter() :
                 titleTv = findViewById(R.id.tv_rvItemHot_title)
                 durationTv = findViewById(R.id.tv_rvItemHot_duration)
                 coverIv.setOnClickListener {
-                    listener?.onClicked(getItem(absoluteAdapterPosition))
+                    listener?.onClicked(getItem(absoluteAdapterPosition),coverIv)
                 }
             }
         }
@@ -76,7 +76,7 @@ class HotRankRvAdapter() :
 
 
     interface OnClickedListener {
-        fun onClicked(videoInfoData: VideoInfoData)
+        fun onClicked(videoInfoData: VideoInfoData,view: View)
     }
 
     private var listener: OnClickedListener? = null

@@ -14,6 +14,7 @@ import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.CategoryBean
 import com.wssg.kaiyan.page.adapter.CategoryDetailPagerAdapter
 import com.wssg.kaiyan.page.adapter.CategoryRecRvAdapter
+import com.wssg.kaiyan.page.ui.anim.HotVPAnimation
 import com.wssg.kaiyan.page.viewmodel.CategoryActivityViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 
@@ -44,5 +45,7 @@ class CategoryActivity : BaseVmActivity<CategoryActivityViewModel>() {
                 1 -> tab.text = "广场"
             }
         }.attach()
+        viewPager.offscreenPageLimit=2
+        viewPager.setPageTransformer(HotVPAnimation())
     }
 }

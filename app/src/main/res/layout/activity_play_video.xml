@@ -11,6 +11,7 @@
     <xyz.doikki.videoplayer.player.VideoView
         android:id="@+id/vv_activity_playVideo"
         android:layout_width="match_parent"
+        android:transitionName="video"
         android:layout_height="260dp" />
 
     <ImageView

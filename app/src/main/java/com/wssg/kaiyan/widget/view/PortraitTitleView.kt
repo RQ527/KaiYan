@@ -37,7 +37,7 @@ class PortraitTitleView @JvmOverloads constructor(
         back.setOnClickListener {
             val activity = PlayerUtils.scanForActivity(context)
             if (activity != null && !mControlWrapper!!.isFullScreen) {
-                activity.finish()
+                activity.onBackPressed()
             }
         }
         mTitle = findViewById(R.id.tv_video_portrait_title)

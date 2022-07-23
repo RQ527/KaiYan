@@ -1,9 +1,9 @@
 package com.wssg.kaiyan.page.ui.fragment
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,12 +60,19 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getFollowData(), adapter)
                     adapter.setOnClickedListener(object : FollowRvAdapter.OnClickedListener {
-                        override fun onClicked(detailBean: VideoInfoData) {
+                        override fun onClicked(detailBean: VideoInfoData, view: View) {
+                            val bundle =
+                                ActivityOptions.makeSceneTransitionAnimation(
+                                    requireActivity(),
+                                    view,
+                                    "video"
+                                )
+                                    .toBundle()
                             startActivity(
                                 Intent(
                                     requireContext(),
                                     PlayVideoActivity::class.java
-                                ).putExtra("videoBean", detailBean)
+                                ).putExtra("videoBean", detailBean), bundle
                             )
                         }
                     })
@@ -80,12 +87,19 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                             recyclerView.adapter = adapter
                             adapter.setOnClickedListener(object :
                                 CategoriesRvAdapter.OnClickedListener {
-                                override fun onClicked(categoryData: CategoryBean) {
+                                override fun onClicked(categoryData: CategoryBean, view: View) {
+                                    val bundle =
+                                        ActivityOptions.makeSceneTransitionAnimation(
+                                            requireActivity(),
+                                            view,
+                                            "category"
+                                        )
+                                            .toBundle()
                                     startActivity(
                                         Intent(
                                             requireContext(),
                                             CategoryActivity::class.java
-                                        ).putExtra("categoryBean", categoryData)
+                                        ).putExtra("categoryBean", categoryData), bundle
                                     )
                                 }
                             })
@@ -107,6 +121,23 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     val adapter = CategoryRecRvAdapter()
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
+                    adapter.setOnClickedListener(object : CategoryRecRvAdapter.OnClickedListener {
+                        override fun onClicked(detailBean: VideoInfoData, view: View) {
+                            val bundle =
+                                ActivityOptions.makeSceneTransitionAnimation(
+                                    requireActivity(),
+                                    view,
+                                    "video"
+                                )
+                                    .toBundle()
+                            startActivity(
+                                Intent(
+                                    requireContext(),
+                                    PlayVideoActivity::class.java
+                                ).putExtra("videoBean", detailBean), bundle
+                            )
+                        }
+                    })
                     bindAdapterToPaging(
                         viewModel.getCategoryRecommendData(categoryBean.tagId),
                         adapter
@@ -129,12 +160,19 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     val adapter = HotRankRvAdapter()
                     recyclerView.adapter = adapter
                     adapter.setOnClickedListener(object : HotRankRvAdapter.OnClickedListener {
-                        override fun onClicked(videoInfoData: VideoInfoData) {
+                        override fun onClicked(videoInfoData: VideoInfoData, view: View) {
+                            val bundle =
+                                ActivityOptions.makeSceneTransitionAnimation(
+                                    requireActivity(),
+                                    view,
+                                    "video"
+                                )
+                                    .toBundle()
                             startActivity(
                                 Intent(
                                     requireContext(),
                                     PlayVideoActivity::class.java
-                                ).putExtra("videoBean", videoInfoData)
+                                ).putExtra("videoBean", videoInfoData), bundle
                             )
                         }
                     })

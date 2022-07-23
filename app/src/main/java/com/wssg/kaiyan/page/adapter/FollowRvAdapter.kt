@@ -68,7 +68,7 @@ class FollowRvAdapter :
                 shareTv = findViewById(R.id.tv_rvItemFollow_share)
                 commentTv = findViewById(R.id.tv_rvItemFollow_comment)
                 coverIv.setOnClickListener {
-                    listener?.onClicked(getItem(absoluteAdapterPosition)!!)
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!,coverIv)
                 }
             }
         }
@@ -98,7 +98,7 @@ class FollowRvAdapter :
             LayoutInflater.from(parent.context).inflate(R.layout.item_follow_rv, parent, false)
         )
     interface OnClickedListener {
-        fun onClicked(detailBean: VideoInfoData)
+        fun onClicked(detailBean: VideoInfoData,view: View)
     }
 
     private var listener: OnClickedListener? = null

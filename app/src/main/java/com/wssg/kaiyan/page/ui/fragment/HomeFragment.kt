@@ -1,6 +1,7 @@
 package com.wssg.kaiyan.page.ui.fragment
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -48,8 +49,8 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
         val pagingAdapter = HomePagingAdapter()
         recyclerView.adapter = pagingAdapter
             .withLoadStateFooter(PagingFooterAdapter {
-            pagingAdapter.retry()
-        })
+                pagingAdapter.retry()
+            })
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.getHomePagingData().collect {
@@ -58,12 +59,15 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
             }
         }
         pagingAdapter.setOnClickedListener(object : HomePagingAdapter.OnClickedListener {
-            override fun onClicked(detailBean: VideoInfoData) {
+            override fun onClicked(detailBean: VideoInfoData, view: View) {
+                val bundle =
+                    ActivityOptions.makeSceneTransitionAnimation(requireActivity(), view, "video")
+                        .toBundle()
                 startActivity(
                     Intent(
                         requireContext(),
                         PlayVideoActivity::class.java
-                    ).putExtra("videoBean", detailBean)
+                    ).putExtra("videoBean", detailBean), bundle
                 )
             }
         })

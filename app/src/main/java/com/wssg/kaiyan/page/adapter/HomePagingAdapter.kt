@@ -103,7 +103,6 @@ class HomePagingAdapter : PagingDataAdapter<VideoInfoData, RecyclerView.ViewHold
         var durationTv: TextView
         var picIv: ImageView
         var headIv: ImageView
-        var videoCardView: CardView
 
         init {
             titleTv = view.findViewById(R.id.tv_rvItemHome_title)
@@ -112,9 +111,8 @@ class HomePagingAdapter : PagingDataAdapter<VideoInfoData, RecyclerView.ViewHold
             durationTv = view.findViewById(R.id.tv_rvItemHome_duration)
             picIv = view.findViewById(R.id.iv_rvItemHome_pic)
             headIv = view.findViewById(R.id.iv_rvItemHome_head)
-            videoCardView = view.findViewById(R.id.cd_rvItemHome_video)
-            videoCardView.setOnClickListener {
-                listener?.onClicked(getItem(absoluteAdapterPosition)!!)
+            picIv.setOnClickListener {
+                listener?.onClicked(getItem(absoluteAdapterPosition)!!, picIv)
             }
         }
 
@@ -122,19 +120,19 @@ class HomePagingAdapter : PagingDataAdapter<VideoInfoData, RecyclerView.ViewHold
 
     inner class BannerHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
-            view.findViewById<MyBannerView>(R.id.banner_rv_homeFrag)
-                .setOnItemClicked(object : MyBannerView.OnItemClicked {
-                    @SuppressLint("SimpleDateFormat")
-                    @RequiresApi(Build.VERSION_CODES.N)
-                    override fun onLicked(position: Int) {
-                        listener?.onClicked(getItem(0)!!.bannerData!![position])
-                    }
-                })
+            val bannerView = view.findViewById<MyBannerView>(R.id.banner_rv_homeFrag)
+            bannerView.setOnItemClicked(object : MyBannerView.OnItemClicked {
+                @SuppressLint("SimpleDateFormat")
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onLicked(position: Int) {
+                    listener?.onClicked(getItem(0)!!.bannerData!![position], bannerView)
+                }
+            })
         }
     }
 
     interface OnClickedListener {
-        fun onClicked(detailBean: VideoInfoData)
+        fun onClicked(detailBean: VideoInfoData, view: View)
     }
 
     private var listener: OnClickedListener? = null

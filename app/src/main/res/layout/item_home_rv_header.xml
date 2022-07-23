@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         app:cardCornerRadius="6dp"
+        android:transitionName="video"
         tools:ignore="MissingConstraints" />
     <TextView
         android:text="- 日报精选 -"

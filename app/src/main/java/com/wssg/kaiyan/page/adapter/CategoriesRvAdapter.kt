@@ -28,7 +28,7 @@ class CategoriesRvAdapter(private var data: List<CategoryBean>) :
             categoryTv = view.findViewById(R.id.tv_rvItemCategories_category)
             coverIv = view.findViewById(R.id.iv_rvItemCategories_category)
             coverIv.setOnClickListener {
-                listener?.onClicked(data[absoluteAdapterPosition])
+                listener?.onClicked(data[absoluteAdapterPosition],coverIv)
             }
         }
     }
@@ -48,7 +48,7 @@ class CategoriesRvAdapter(private var data: List<CategoryBean>) :
     override fun getItemCount(): Int = data.size
 
     interface OnClickedListener {
-        fun onClicked(categoryData: CategoryBean)
+        fun onClicked(categoryData: CategoryBean,view: View)
     }
 
     private var listener: OnClickedListener? = null

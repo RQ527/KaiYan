@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.page.adapter.FindFragPagerAdapter
+import com.wssg.kaiyan.page.ui.anim.FindVPAnimation
 import com.wssg.lib.base.base.ui.BaseFragment
 
 /**
@@ -42,5 +43,7 @@ class FindFragment : BaseFragment() {
                     else -> error("tabLayout位置错误")
                 }
         }.attach()
+        viewPager.setPageTransformer(FindVPAnimation())
+        viewPager.offscreenPageLimit = 2
     }
 }
