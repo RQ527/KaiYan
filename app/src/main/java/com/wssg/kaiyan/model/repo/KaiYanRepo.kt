@@ -8,6 +8,7 @@ import com.wssg.kaiyan.model.bean.VideoInfoData
 import com.wssg.kaiyan.model.netservice.CategoriesService
 import com.wssg.kaiyan.model.netservice.PlayVideoService
 import com.wssg.kaiyan.model.netservice.RankService
+import com.wssg.kaiyan.model.netservice.SearchService
 import com.wssg.kaiyan.model.pagingsource.*
 import com.wssg.lib.base.base.BaseRepository
 import com.wssg.lib.base.base.BaseResp
@@ -50,4 +51,10 @@ object KaiYanRepo : BaseRepository() {
 
     fun getRankList(strategy: String) =
         executeResp { RetrofitClient.getService(RankService::class.java).getRankList(strategy) }
+
+    fun getHotKeys() =
+        executeResp {
+            val data = RetrofitClient.getService(SearchService::class.java).getHotKeys()
+            BaseResp(itemList = data)
+        }
 }

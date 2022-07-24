@@ -33,46 +33,46 @@ class SearchResultPagingSource(private val query: String) : BasePagingSource<Sea
             val realData = mutableListOf<SearchResultData>()
             for (data in homeData.itemList!!) {
                 data.type.run {
-                        when (this) {
-                            "briefCard" -> {
-                                realData.add(data.data.run {
-                                    SearchResultData(
-                                        id,
-                                        follow.itemType,
-                                        icon,
-                                        title,
-                                        description,
+                    when (this) {
+                        "briefCard" -> {
+                            realData.add(data.data.run {
+                                SearchResultData(
+                                    id,
+                                    follow.itemType,
+                                    icon,
+                                    title,
+                                    description,
+                                    null
+                                )
+                            })
+                        }
+                        "followCard" -> {
+                            realData.add(data.data.content.data.run {
+                                SearchResultData(
+                                    id.toLong(),
+                                    "video",
+                                    null,
+                                    null,
+                                    null,
+                                    VideoInfoData(
+                                        id, playUrl, cover.feed, title, category, description,
+                                        VideoInfoData.Consumption(
+                                            consumption.collectionCount,
+                                            consumption.shareCount,
+                                            consumption.replyCount
+                                        ),
+                                        author?.name ?: "",
+                                        author?.description ?: "",
+                                        author?.icon ?: "",
+                                        duration,
+                                        releaseTime,
                                         null
                                     )
-                                })
-                            }
-                            "followCard" -> {
-                                realData.add(data.data.content.data.run {
-                                    SearchResultData(
-                                        id.toLong(),
-                                        "video",
-                                        null,
-                                        null,
-                                        null,
-                                        VideoInfoData(
-                                            id, playUrl, cover.feed, title, category, description,
-                                            VideoInfoData.Consumption(
-                                                consumption.collectionCount,
-                                                consumption.shareCount,
-                                                consumption.replyCount
-                                            ),
-                                            author.name,
-                                            author.description,
-                                            author.icon,
-                                            duration,
-                                            releaseTime,
-                                            null
-                                        )
-                                    )
-                                })
-                            }
-                            else -> {}
+                                )
+                            })
                         }
+                        else -> {}
+                    }
                 }
             }
             println()

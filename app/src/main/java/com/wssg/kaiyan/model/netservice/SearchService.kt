@@ -19,4 +19,7 @@ interface SearchService {
         @Query("start") start: String,
         @Query("num") num: String
     ): BaseResp<List<SearchResultBean>>
+
+    @GET("/api/v3/queries/hot")
+    suspend fun getHotKeys(): List<String>
 }

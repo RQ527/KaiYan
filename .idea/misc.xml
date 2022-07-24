@@ -25,6 +25,7 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/search.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_duration_home.xml" value="0.207" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_kind_home.xml" value="0.207" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_tv.xml" value="0.145" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/share.xml" value="0.134" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/share_black.xml" value="0.134" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/video.xml" value="0.161" />
@@ -65,6 +66,7 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_video_comment_rv.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_vp_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/refresh_top.xml" value="0.2246376811594203" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/textview_flow_layout.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/toolbar.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/video_portait_title.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
