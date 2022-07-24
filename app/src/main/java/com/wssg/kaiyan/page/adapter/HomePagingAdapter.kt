@@ -131,7 +131,7 @@ class HomePagingAdapter : PagingDataAdapter<VideoInfoData, RecyclerView.ViewHold
         }
     }
 
-    interface OnClickedListener {
+    fun interface OnClickedListener {
         fun onClicked(detailBean: VideoInfoData, view: View)
     }
 

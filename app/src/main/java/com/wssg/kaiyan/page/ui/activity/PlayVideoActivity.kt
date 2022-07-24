@@ -1,27 +1,26 @@
 package com.wssg.kaiyan.page.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
+import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.wssg.kaiyan.widget.view.PortraitTitleView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.VideoInfoData
 import com.wssg.kaiyan.page.adapter.VideoRelatedRvAdapter
 import com.wssg.kaiyan.page.viewmodel.PlayVideoActivityViewModel
+import com.wssg.kaiyan.widget.view.PortraitTitleView
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 import com.wssg.lib.base.net.DataState
 import xyz.doikki.videocontroller.StandardVideoController
@@ -37,21 +36,32 @@ import java.util.*
  * @date 2022/7/15
  * @Description:
  */
-class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelStatusBar = false) {
+class PlayVideoActivity :
+    BaseVmActivity<PlayVideoActivityViewModel>(statusBarTextColorBlack = false) {
     private val videoView
-            by R.id.vv_activity_playVideo.view<xyz.doikki.videoplayer.player.VideoView<AndroidMediaPlayer>>()
-    private val titleTv by R.id.tv_playVideo_title.view<TextView>()
-    private val subTitleTv by R.id.tv_playVideo_subtitle.view<TextView>()
-    private val descriptionTv by R.id.tv_playVideo_description.view<TextView>()
-    private val collectionTv by R.id.tv_playVideo_agree.view<TextView>()
-    private val shareTv by R.id.tv_playVideo_share.view<TextView>()
-    private val commentTv by R.id.tv_playVideo_comment.view<TextView>()
+            by R.id.vv_activity_playVideo.view<VideoView<AndroidMediaPlayer>>()
+
     private val recyclerView by R.id.rv_playVideoActivity.view<RecyclerView>()
+    private val collapsingToolbarLayout by R.id.ctl_activity_playVideo.view<CollapsingToolbarLayout>()
+    private val toolbar by R.id.tl_activity_playVideo_title.view<Toolbar>()
+    private val appBarLayout by R.id.abl_activity_playVideo.view<AppBarLayout>()
+    private val nestedScrollVIew by R.id.nsv_activity_playVideo_scrollView.view<NestedScrollView>()
+
+    companion object {
+        fun startActivity(context: Context, videoInfoData: VideoInfoData, bundle: Bundle? = null) {
+            context.startActivity(
+                Intent(
+                    context,
+                    PlayVideoActivity::class.java
+                ).putExtra("videoBean", videoInfoData), bundle
+            )
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
-        cancelStatusBar()
         val videoBean = intent.getSerializableExtra("videoBean") as VideoInfoData
         initVideoPlayer(videoBean)
         initView(videoBean)
@@ -60,16 +70,8 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun initView(videoDetailBean: VideoInfoData) {
-        titleTv.text = videoDetailBean.title
-        subTitleTv.text = "#${videoDetailBean.kind} ${
-            SimpleDateFormat("/ yyyy/MM/dd HH:mm").format(Date(videoDetailBean.releaseDate))
-        }"
-        descriptionTv.text = videoDetailBean.description
-        collectionTv.text = videoDetailBean.consumption.collectionCount.toString()
-        shareTv.text = videoDetailBean.consumption.shareCount.toString()
-        commentTv.text = videoDetailBean.consumption.replyCount.toString()
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = VideoRelatedRvAdapter(null)
+        val adapter = VideoRelatedRvAdapter(null, videoDetailBean)
         viewModel.videoRelatedData.observe(this) { gottenData ->
             if (gottenData.dataState == DataState.STATE_SUCCESS) {
                 val realData = mutableListOf<VideoInfoData>()
@@ -91,8 +93,8 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
                                     consumption.replyCount.toInt()
                                 ),
                                 author?.name ?: "",
-                                author?.description ?:"",
-                                author?.icon?:"",
+                                author?.description ?: "",
+                                author?.icon ?: "",
                                 duration.toInt(),
                                 releaseTime,
                                 null
@@ -108,19 +110,43 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
             }
         }
         recyclerView.adapter = adapter
-        adapter.setOnClickedListener(object : VideoRelatedRvAdapter.OnClickedListener {
-            override fun onClicked(videoInfoData: VideoInfoData) {
-                startActivity(
-                    Intent(
-                        this@PlayVideoActivity,
-                        PlayVideoActivity::class.java
-                    ).putExtra("videoBean", videoInfoData)
-                )
-            }
-        })
+        adapter.setOnClickedListener { videoInfoData, view ->
+            startActivity(
+                Intent(
+                    this@PlayVideoActivity,
+                    PlayVideoActivity::class.java
+                ).putExtra("videoBean", videoInfoData),
+                ActivityOptions.makeSceneTransitionAnimation(
+                    this,
+                    view,
+                    "video"
+                ).toBundle()
+            )
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = true
         viewModel.getVideoRelatedData(videoDetailBean.id)
+        //控制标题栏折叠的相关代码
+        toolbar.setOnClickListener {
+            appBarLayout.setExpanded(true)
+            videoView.start()
+        }
+        val i0 = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+        val i1 = AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+        val appBarChildAt: View = appBarLayout.getChildAt(0)
+        val appBarParams = appBarChildAt.layoutParams as AppBarLayout.LayoutParams
+        //监听播放状态，暂停才可以折爹标题栏
+        videoView.addOnStateChangeListener(object : VideoView.OnStateChangeListener {
+            override fun onPlayerStateChanged(playerState: Int) {
+
+            }
+
+            override fun onPlayStateChanged(playState: Int) {
+                if (playState == VideoView.STATE_PLAYING) appBarParams.scrollFlags = 0 //这个加了之后不可滑动
+                else if (playState == VideoView.STATE_PAUSED) appBarParams.scrollFlags = i0 or i1 // 重置折叠效果
+                appBarChildAt.layoutParams = appBarParams
+            }
+        })
     }
 
     private fun initVideoPlayer(videoDetailBean: VideoInfoData) {
@@ -163,20 +189,6 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
         videoView.start()
     }
 
-    private fun cancelStatusBar() {
-        val window = this.window
-        val decorView = window.decorView
-
-        // 这是 Android 做了兼容的 Compat 包
-        // 注意，使用了下面这个方法后，状态栏不会再有东西占位，
-        // 可以给根布局加上 android:fitsSystemWindows=true
-        // 不同布局该属性效果不同，请给合适的布局添加
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
-        windowInsetsController?.isAppearanceLightStatusBars = false // 设置状态栏字体颜色为白色
-        window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
-    }
-
     override fun onPause() {
         super.onPause()
         videoView.pause()
@@ -197,5 +209,6 @@ class PlayVideoActivity : BaseVmActivity<PlayVideoActivityViewModel>(isCancelSta
             super.onBackPressed()
         }
     }
+
 
 }

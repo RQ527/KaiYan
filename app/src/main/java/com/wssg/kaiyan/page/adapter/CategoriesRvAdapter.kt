@@ -47,7 +47,7 @@ class CategoriesRvAdapter(private var data: List<CategoryBean>) :
 
     override fun getItemCount(): Int = data.size
 
-    interface OnClickedListener {
+    fun interface OnClickedListener {
         fun onClicked(categoryData: CategoryBean,view: View)
     }
 

@@ -1,5 +1,7 @@
 package com.wssg.kaiyan.page.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
@@ -19,10 +21,22 @@ import com.wssg.kaiyan.page.viewmodel.CategoryActivityViewModel
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 
 class CategoryActivity : BaseVmActivity<CategoryActivityViewModel>() {
-    val viewPager by R.id.vp_categoryActivity.view<ViewPager2>()
-    val tablLayout by R.id.tl_categoryActivity_tab.view<TabLayout>()
-    val toolbar by R.id.tl_categoryActivity_title.view<Toolbar>()
-    val headIv by R.id.iv_categoryActivity_cover.view<ImageView>()
+    private val viewPager by R.id.vp_categoryActivity.view<ViewPager2>()
+    private val tablLayout by R.id.tl_categoryActivity_tab.view<TabLayout>()
+    private val toolbar by R.id.tl_categoryActivity_title.view<Toolbar>()
+    private val headIv by R.id.iv_categoryActivity_cover.view<ImageView>()
+
+    companion object {
+        fun startActivity(context: Context, categoryBean: CategoryBean, bundle: Bundle? = null) {
+            context.startActivity(
+                Intent(
+                    context,
+                    CategoryActivity::class.java
+                ).putExtra("categoryBean", categoryBean), bundle
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_detail)
@@ -31,21 +45,20 @@ class CategoryActivity : BaseVmActivity<CategoryActivityViewModel>() {
 
     private fun initView() {
         setSupportActionBar(toolbar)
-        supportActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         val categoryBean: CategoryBean = intent.getSerializableExtra("categoryBean") as CategoryBean
         supportActionBar?.title = categoryBean.name
         Glide.with(this).load(categoryBean.headerImage).into(headIv)
-        viewPager.adapter = CategoryDetailPagerAdapter(this,categoryBean)
+        viewPager.adapter = CategoryDetailPagerAdapter(this, categoryBean)
         TabLayoutMediator(tablLayout, viewPager) { tab, pos ->
             when (pos) {
                 0 -> tab.text = "推荐"
                 1 -> tab.text = "广场"
             }
         }.attach()
-        viewPager.offscreenPageLimit=2
+        viewPager.offscreenPageLimit = 2
         viewPager.setPageTransformer(HotVPAnimation())
     }
 }

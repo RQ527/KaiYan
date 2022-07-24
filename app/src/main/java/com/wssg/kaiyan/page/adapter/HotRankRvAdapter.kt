@@ -75,7 +75,7 @@ class HotRankRvAdapter() :
     }
 
 
-    interface OnClickedListener {
+    fun interface OnClickedListener {
         fun onClicked(videoInfoData: VideoInfoData,view: View)
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -58,29 +59,14 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
                 }
             }
         }
-        pagingAdapter.setOnClickedListener(object : HomePagingAdapter.OnClickedListener {
-            override fun onClicked(detailBean: VideoInfoData, view: View) {
-                val bundle =
-                    ActivityOptions.makeSceneTransitionAnimation(requireActivity(), view, "video")
-                        .toBundle()
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        PlayVideoActivity::class.java
-                    ).putExtra("videoBean", detailBean), bundle
-                )
-            }
-        })
-//        pagingAdapter.addLoadStateListener {
-//            when(it.refresh){
-//                is LoadState.Loading->{
-//                    refreshLayout.isRefreshing = true
-//                }
-//                is LoadState.Error,is LoadState.NotLoading ->{
-//                    refreshLayout.isRefreshing = false
-//                }
-//            }
-//        }
+        pagingAdapter.setOnClickedListener { detailBean, view ->
+            PlayVideoActivity.startActivity(
+                requireContext(),
+                detailBean,
+                ActivityOptions.makeSceneTransitionAnimation(requireActivity(), view, "video")
+                    .toBundle()
+            )
+        }
         refreshLayout.setOnRefreshListener {
             if (refreshLayout.isRefreshing) {
                 pagingAdapter.refresh()

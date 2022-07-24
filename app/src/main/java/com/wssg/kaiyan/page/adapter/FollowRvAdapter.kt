@@ -97,7 +97,7 @@ class FollowRvAdapter :
         InnerViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_follow_rv, parent, false)
         )
-    interface OnClickedListener {
+    fun interface OnClickedListener {
         fun onClicked(detailBean: VideoInfoData,view: View)
     }
 

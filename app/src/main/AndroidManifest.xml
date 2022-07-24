@@ -28,9 +28,14 @@
             android:name=".page.ui.activity.CategoryActivity"
             android:exported="false" />
         <activity
+            android:name=".page.ui.activity.PhotoAndVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
             android:name=".page.ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
+            android:theme="@style/Theme.SingleTap"
             android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

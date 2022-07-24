@@ -91,7 +91,7 @@ class SearchResultRvAdapter :
                 typeTv = findViewById(R.id.tv_rvItemSearchActivityVideo_type)
                 categoryTv = findViewById(R.id.tv_rvItemSearchActivityVideo_kind)
                 findViewById<ConstraintLayout>(R.id.cl_rvItemSearchActivityVideo_total).setOnClickListener {
-                    listener?.onClicked(getItem(absoluteAdapterPosition)!!)
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!,coverIv)
                 }
             }
         }
@@ -147,8 +147,8 @@ class SearchResultRvAdapter :
 
     }
 
-    interface OnClickedListener {
-        fun onClicked(searchResultData: SearchResultData)
+    fun interface OnClickedListener {
+        fun onClicked(searchResultData: SearchResultData,view: View)
     }
 
     private var listener: OnClickedListener? = null

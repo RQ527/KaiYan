@@ -10,7 +10,8 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseVmActivity<VM : ViewModel>(
   isPortraitScreen: Boolean = true, // 作用请查看父类
   isCancelStatusBar: Boolean = true, // 作用请查看父类
-) : BaseActivity(isPortraitScreen, isCancelStatusBar) {
+  statusBarTextColorBlack:Boolean = true
+) : BaseActivity(isPortraitScreen, isCancelStatusBar, statusBarTextColorBlack) {
   
   @Suppress("UNCHECKED_CAST")
   protected val viewModel by lazy(LazyThreadSafetyMode.NONE) {
@@ -22,5 +23,5 @@ abstract class BaseVmActivity<VM : ViewModel>(
       ViewModelProvider.AndroidViewModelFactory(this.application)
     )[vmClass]
   }
-  fun <T : View> Int.view() = BindView<T>(this, BindView.GetActivity { this@BaseVmActivity })
+
 }

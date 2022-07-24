@@ -84,7 +84,7 @@ class CategoryRecRvAdapter :
         }
     }
 
-    interface OnClickedListener {
+    fun interface OnClickedListener {
         fun onClicked(detailBean: VideoInfoData, view: View)
     }
 

@@ -59,7 +59,7 @@ class CommunityRvAdapter :
                 agreeCountTv = findViewById(R.id.tv_rvItemInnerFind_agree)
                 kindIv = findViewById(R.id.iv_rvItemHome_kind)
                 coverIv.setOnClickListener {
-
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!,coverIv)
                 }
             }
         }
@@ -85,8 +85,8 @@ class CommunityRvAdapter :
         }
     }
 
-    interface OnClickedListener {
-        fun onClicked(detailBean: VideoInfoData)
+    fun interface OnClickedListener {
+        fun onClicked(communityData: CommunityData,view: View)
     }
 
     private var listener: OnClickedListener? = null

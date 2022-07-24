@@ -67,7 +67,7 @@ class CategorySquareRvAdapter: PagingDataAdapter<CategorySquareData, CategorySqu
                 commentTv = findViewById(R.id.tv_rvItemCategorySquare_comment)
                 videoView = findViewById(R.id.view_rvItemCategorySquare_video)
                 coverIv.setOnClickListener {
-                    listener?.onClicked(getItem(absoluteAdapterPosition)!!)
+                    listener?.onClicked(getItem(absoluteAdapterPosition)!!,coverIv)
                 }
             }
         }
@@ -96,8 +96,8 @@ class CategorySquareRvAdapter: PagingDataAdapter<CategorySquareData, CategorySqu
         InnerViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_category_square_rv, parent, false)
         )
-    interface OnClickedListener {
-        fun onClicked(categorySquareData: CategorySquareData)
+    fun interface OnClickedListener {
+        fun onClicked(categorySquareData: CategorySquareData,view: View)
     }
 
     private var listener: OnClickedListener? = null
