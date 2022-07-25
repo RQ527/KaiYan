@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.wssg.kaiyan.R
+import com.wssg.kaiyan.utils.dpToPx
 import kotlin.math.log
 
 /**
@@ -26,7 +27,8 @@ class FlowLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
     private var data = mutableListOf<String>()
-
+    private val marginHorizontal = 20
+    private val marginHeight = 10
     //外部设置数据
     fun addData(data: List<String>) {
         for (d in data) {
@@ -36,7 +38,7 @@ class FlowLayout @JvmOverloads constructor(
             textView.text = d
             this.data.add(d)
             addView(View(context).apply {
-                layoutParams = LayoutParams(40, 1)//用空的view来占位，达到两个TextView间隔一定距离
+                layoutParams = LayoutParams(marginHorizontal.dpToPx(), 1)//用空的view来占位，达到两个TextView间隔一定距离
             })
             this.data.add("")//加个空数据防止通过位置获取数据而错位
         }
@@ -57,7 +59,7 @@ class FlowLayout @JvmOverloads constructor(
                 val childWidth = childView.measuredWidth
                 if (hasPlacedWidth + childWidth > measuredWidth) {
                     hasPlacedWidth = 0
-                    hasPlacedHeight += childHeight + 20//上下间隔距离
+                    hasPlacedHeight += childHeight + marginHeight.dpToPx()//上下间隔距离
                 }
                 childView.layout(
                     hasPlacedWidth,
