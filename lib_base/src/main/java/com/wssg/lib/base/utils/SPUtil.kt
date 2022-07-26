@@ -11,15 +11,16 @@ import com.wssg.lib.base.base.BaseApp
  * @date 2022/7/14
  * @Description:
  */
-object SPUtil {
-    private val sp: SharedPreferences = BaseApp.appContext
+fun saveValue(key: String, value: String) {
+    val sp: SharedPreferences = BaseApp.appContext
         .getSharedPreferences("kaiyan", Context.MODE_PRIVATE)
-    fun saveValue(key:String,value:String){
-        val edit = sp.edit()
-        edit.putString(key, value)
-        edit.apply()
-    }
-    fun achieveValue(key: String): String? {
-        return sp.getString(key, "")
-    }
+    val edit = sp.edit()
+    edit.putString(key, value)
+    edit.apply()
+}
+
+fun achieveValue(key: String): String? {
+    val sp: SharedPreferences = BaseApp.appContext
+        .getSharedPreferences("kaiyan", Context.MODE_PRIVATE)
+    return sp.getString(key, "")
 }

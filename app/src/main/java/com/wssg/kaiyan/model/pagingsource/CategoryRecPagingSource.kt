@@ -67,7 +67,6 @@ class CategoryRecPagingSource(val id: Int) : BasePagingSource<VideoInfoData>() {
             val nextKey = if (nextParams != "") page + 1 else null
             LoadResult.Page(realData, prevKey, nextKey)
         } catch (e: Exception) {
-            Log.d("RQ", "load: $e")
             LoadResult.Error(e)
         }
     }

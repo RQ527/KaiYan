@@ -2,11 +2,11 @@ package com.wssg.kaiyan.page.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +18,7 @@ import com.wssg.kaiyan.page.Constant.CATEGORY_ACTIVITY_SQUARE
 import com.wssg.kaiyan.page.Constant.FIND_FRAGMENT_CATEGORY
 import com.wssg.kaiyan.page.Constant.FIND_FRAGMENT_FOLLOW
 import com.wssg.kaiyan.page.Constant.FIND_FRAGMENT_RECOMMEND
-import com.wssg.kaiyan.page.Constant.HOT_FRAGMENT_ALL
+import com.wssg.kaiyan.page.Constant.HOT_FRAGMENT_HISTORICAL
 import com.wssg.kaiyan.page.Constant.HOT_FRAGMENT_MONTHLY
 import com.wssg.kaiyan.page.Constant.HOT_FRAGMENT_WEEKLY
 import com.wssg.kaiyan.page.adapter.*
@@ -26,6 +26,8 @@ import com.wssg.kaiyan.page.ui.activity.CategoryActivity
 import com.wssg.kaiyan.page.ui.activity.PhotoAndVideoActivity
 import com.wssg.kaiyan.page.ui.activity.PlayVideoActivity
 import com.wssg.kaiyan.page.viewmodel.InnerFragmentViewModel
+import com.wssg.kaiyan.utils.toast
+import com.wssg.kaiyan.widget.view.MyRefreshView
 import com.wssg.lib.base.base.ui.mvvm.BaseVmFragment
 import com.wssg.lib.base.net.DataState
 
@@ -36,9 +38,10 @@ import com.wssg.lib.base.net.DataState
  * @date 2022/7/17
  * @Description:
  */
-class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
+class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
     private var type: String = ""
-    private val recyclerView by R.id.rv_innerFindFrag.view<RecyclerView>()
+    private val recyclerView by R.id.rv_innerFrag.view<RecyclerView>()
+    private val refreshLayout by R.id.srl_innerFrag.view<MyRefreshView>()
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -47,7 +50,7 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
         savedInstanceState: Bundle?
     ): View? {
         type = arguments?.getString("type")!!
-        return inflater.inflate(R.layout.fragment_inner_find, null)
+        return inflater.inflate(R.layout.fragment_reuse, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +61,13 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getFollowData(), adapter)
+                    refreshLayout.keyName = "findFollowFragRefresh"
+                    refreshLayout.setOnRefreshListener {
+                        adapter.refresh()
+                    }
+                    adapter.addLoadStateListener {
+                        if (it.refresh is LoadState.Error) toast("关注加载失败")
+                    }
                     adapter.setOnClickedListener { detailBean, view ->
                         PlayVideoActivity.startActivity(
                             requireContext(),
@@ -75,6 +85,9 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                 FIND_FRAGMENT_CATEGORY -> {
                     var adapter: CategoriesRvAdapter
                     viewModel.allCategoriesLiveData.observe(requireActivity()) {
+                        if (it.dataState==DataState.STATE_ERROR){
+                            toast("获取分类数据失败")
+                        }
                         if (it.dataState == DataState.STATE_SUCCESS) {
                             adapter =
                                 CategoriesRvAdapter(it.itemList!!)
@@ -90,6 +103,10 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                             }
                         }
                     }
+                    refreshLayout.keyName = "findCategoryFragRefresh"
+                    refreshLayout.setOnRefreshListener{
+                        viewModel.getAllCategories()
+                    }
                     viewModel.getAllCategories()
                     GridLayoutManager(requireContext(), 2)
                 }
@@ -98,6 +115,13 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getCommunityData(), adapter)
+                    refreshLayout.keyName = "findRecommendFragRefresh"
+                    refreshLayout.setOnRefreshListener {
+                        adapter.refresh()
+                    }
+                    adapter.addLoadStateListener {
+                        if (it.refresh is LoadState.Error) toast("发现的推荐加载失败")
+                    }
                     adapter.setOnClickedListener { communityData, view ->
                         val source = PhotoAndVideoActivity.Companion.Source("", null, null)
                         if (communityData.kind == "ugc_video") {
@@ -114,62 +138,7 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     }
                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 }
-                CATEGORY_ACTIVITY_RECOMMEND -> {
-                    val categoryBean =
-                        requireArguments().getSerializable("categoryBean")!! as CategoryBean
-                    val adapter = CategoryRecRvAdapter()
-                    recyclerView.adapter =
-                        adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
-                    adapter.setOnClickedListener { detailBean, view ->
-                        PlayVideoActivity.startActivity(
-                            requireContext(),
-                            detailBean,
-                            ActivityOptions.makeSceneTransitionAnimation(
-                                requireActivity(),
-                                view,
-                                "video"
-                            )
-                                .toBundle()
-                        )
-                    }
-                    bindAdapterToPaging(
-                        viewModel.getCategoryRecommendData(categoryBean.tagId),
-                        adapter
-                    )
-                    LinearLayoutManager(requireContext())
-                }
-                CATEGORY_ACTIVITY_SQUARE -> {
-                    val categoryBean =
-                        requireArguments().getSerializable("categoryBean")!! as CategoryBean
-                    val adapter = CategorySquareRvAdapter()
-                    recyclerView.adapter =
-                        adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
-                    bindAdapterToPaging(
-                        viewModel.getCategorySquareData(categoryBean.tagId),
-                        adapter
-                    )
-                    adapter.setOnClickedListener { categorySquareData: CategorySquareData, view: View ->
-                        val source = PhotoAndVideoActivity.Companion.Source(
-                            categorySquareData.kind,
-                            null,
-                            null
-                        )
-                        if (categorySquareData.kind == "ugc_video") source.playUrl =
-                            categorySquareData.playUrl
-                        else source.picUrls = categorySquareData.picUrls
-                        PhotoAndVideoActivity.startActivity(
-                            requireContext(), source,
-                            ActivityOptions.makeSceneTransitionAnimation(
-                                requireActivity(),
-                                view,
-                                "picture"
-                            )
-                                .toBundle()
-                        )
-                    }
-                    LinearLayoutManager(requireContext())
-                }
-                HOT_FRAGMENT_MONTHLY, HOT_FRAGMENT_WEEKLY, HOT_FRAGMENT_ALL -> {
+                HOT_FRAGMENT_MONTHLY, HOT_FRAGMENT_WEEKLY, HOT_FRAGMENT_HISTORICAL -> {
                     val adapter = HotRankRvAdapter()
                     recyclerView.adapter = adapter
                     adapter.setOnClickedListener { videoInfoData, view ->
@@ -188,30 +157,37 @@ class OnlyRvFragment : BaseVmFragment<InnerFragmentViewModel>() {
                         when (type) {
                             HOT_FRAGMENT_MONTHLY -> {
                                 monthlyRankLiveData.observe(requireActivity()) {
+                                    if (it.dataState==DataState.STATE_ERROR) toast("获取月排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))
                                     }
                                 }
-                                getRankList("monthly")
+                                refreshLayout.keyName = "rankMonthlyFragRefresh"
                             }
                             HOT_FRAGMENT_WEEKLY -> {
                                 weeklyRankLiveData.observe(requireActivity()) {
+                                    if (it.dataState==DataState.STATE_ERROR) toast("获取周排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))
                                     }
                                 }
-                                getRankList("weekly")
+                                refreshLayout.keyName = "rankWeeklyFragRefresh"
                             }
-                            HOT_FRAGMENT_ALL -> {
+                            HOT_FRAGMENT_HISTORICAL -> {
                                 historicalRankLiveData.observe(requireActivity()) {
+                                    if (it.dataState==DataState.STATE_ERROR) toast("获取总排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))
                                     }
                                 }
-                                getRankList("historical")
                             }
                             else -> ""
                         }
+                        refreshLayout.keyName = "rank${type}FragRefresh"
+                        refreshLayout.setOnRefreshListener{
+                            getRankList(type.substring(14,type.length))
+                        }
+                        getRankList(type.substring(14,type.length))
                     }
                     LinearLayoutManager(requireContext())
                 }

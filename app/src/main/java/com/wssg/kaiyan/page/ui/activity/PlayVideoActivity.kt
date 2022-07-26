@@ -20,6 +20,7 @@ import com.wssg.kaiyan.R
 import com.wssg.kaiyan.model.bean.VideoInfoData
 import com.wssg.kaiyan.page.adapter.VideoRelatedRvAdapter
 import com.wssg.kaiyan.page.viewmodel.PlayVideoActivityViewModel
+import com.wssg.kaiyan.utils.toast
 import com.wssg.kaiyan.widget.view.PortraitTitleView
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 import com.wssg.lib.base.net.DataState
@@ -42,10 +43,8 @@ class PlayVideoActivity :
             by R.id.vv_activity_playVideo.view<VideoView<AndroidMediaPlayer>>()
 
     private val recyclerView by R.id.rv_playVideoActivity.view<RecyclerView>()
-    private val collapsingToolbarLayout by R.id.ctl_activity_playVideo.view<CollapsingToolbarLayout>()
     private val toolbar by R.id.tl_activity_playVideo_title.view<Toolbar>()
     private val appBarLayout by R.id.abl_activity_playVideo.view<AppBarLayout>()
-    private val nestedScrollVIew by R.id.nsv_activity_playVideo_scrollView.view<NestedScrollView>()
 
     companion object {
         fun startActivity(context: Context, videoInfoData: VideoInfoData, bundle: Bundle? = null) {
@@ -73,6 +72,7 @@ class PlayVideoActivity :
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = VideoRelatedRvAdapter(null, videoDetailBean)
         viewModel.videoRelatedData.observe(this) { gottenData ->
+            if (gottenData.dataState==DataState.STATE_ERROR) toast("获取相关视频信息失败")
             if (gottenData.dataState == DataState.STATE_SUCCESS) {
                 val realData = mutableListOf<VideoInfoData>()
                 var header = ""
@@ -111,17 +111,11 @@ class PlayVideoActivity :
         }
         recyclerView.adapter = adapter
         adapter.setOnClickedListener { videoInfoData, view ->
-            startActivity(
-                Intent(
-                    this@PlayVideoActivity,
-                    PlayVideoActivity::class.java
-                ).putExtra("videoBean", videoInfoData),
-                ActivityOptions.makeSceneTransitionAnimation(
-                    this,
-                    view,
-                    "video"
-                ).toBundle()
-            )
+            startActivity(this,videoInfoData,ActivityOptions.makeSceneTransitionAnimation(
+                this,
+                view,
+                "video"
+            ).toBundle())
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = true

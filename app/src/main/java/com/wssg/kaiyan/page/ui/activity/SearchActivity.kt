@@ -20,6 +20,7 @@ import com.wssg.kaiyan.model.pagingsource.SearchResultPagingSource
 import com.wssg.kaiyan.page.adapter.PagingFooterAdapter
 import com.wssg.kaiyan.page.adapter.SearchResultRvAdapter
 import com.wssg.kaiyan.page.viewmodel.SearchActivityViewModel
+import com.wssg.kaiyan.utils.toast
 import com.wssg.kaiyan.widget.view.FlowLayout
 import com.wssg.lib.base.base.ui.mvvm.BaseVmActivity
 import com.wssg.lib.base.net.DataState
@@ -74,6 +75,7 @@ class SearchActivity : BaseVmActivity<SearchActivityViewModel>() {
             }
         }
         viewModel.hotKeysLiveData.observe(this) {
+            if (it.dataState==DataState.STATE_ERROR) toast("获取热词失败")
             if (it.dataState == DataState.STATE_SUCCESS) {
                 flowLayout.addData(it.itemList!!)
             }

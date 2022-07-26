@@ -11,6 +11,7 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/collection.xml" value="0.145" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/comment.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/comment_black.xml" value="0.134" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/error.xml" value="0.145" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/find.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/find_selector.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/home.xml" value="0.1895" />
@@ -22,6 +23,7 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/mine_selector.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/pictures.xml" value="0.161" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/progressbar.xml" value="0.207" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/refresh_arrow.xml" value="0.145" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/search.xml" value="0.1895" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_duration_home.xml" value="0.207" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/drawable/shape_kind_home.xml" value="0.207" />
@@ -36,13 +38,17 @@
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_photo_and_video.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_play_video.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/activity_search.xml" value="0.2246376811594203" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dialog_error.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dialog_play_video_comment.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/dkplayer_layout_standard_controller.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_find.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_hot.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_incategory.xml" value="0.2246376811594203" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_inner.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_inner_find.xml" value="0.2526041666666667" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_mine.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/fragment_reuse.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_categories_rv.xml" value="0.2246376811594203" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_category_rec_rv.xml" value="0.264" />
         <entry key="..\:/AndroidTool/AndroidProject/KaiYan/app/src/main/res/layout/item_category_rec_square.xml" value="0.2246376811594203" />

@@ -1,7 +1,8 @@
 package com.wssg.lib.base.net
 
 import android.util.Log
-import com.wssg.lib.base.utils.SPUtil
+import com.wssg.lib.base.utils.achieveValue
+import com.wssg.lib.base.utils.saveValue
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -22,10 +23,6 @@ object RetrofitClient {
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
-        .addInterceptor{chain ->
-            Log.d("RQ", "okhttp: ${chain.request().url}")
-            return@addInterceptor chain.proceed(chain.request().newBuilder().build())
-        }
         .build()
 
     private var saveCookieOkHttpClient = OkHttpClient.Builder()
@@ -39,7 +36,7 @@ object RetrofitClient {
                 for (i in response.headers("Set-Cookie")) {
                     sb.append(i).append(";")
                 }
-                SPUtil.saveValue("cookie",sb.substring(0,sb.length-1))
+                saveValue("cookie",sb.substring(0,sb.length-1))
             }
             Log.d("RQ", "saveCookie")
             return@addInterceptor response
@@ -52,7 +49,7 @@ object RetrofitClient {
         .writeTimeout(30, TimeUnit.SECONDS)
         .addInterceptor{chain ->
             val request = chain.request().newBuilder().apply {
-                val cookie = SPUtil.achieveValue("cookie")
+                val cookie = achieveValue("cookie")
                 if (cookie != null) {
                     addHeader("Cookie", cookie)
                 }

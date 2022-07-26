@@ -20,9 +20,10 @@
             app:elevation="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                app:layout_scrollFlags="scroll|enterAlways|snap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <TextView
                     android:id="@+id/tv_toolbar"
@@ -32,22 +33,22 @@
                     android:gravity="center"
                     android:text="日报"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
 
                 <Button
                     android:id="@+id/bt_toolbar_search"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/search"
+                    android:transitionName="search"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.929"
                     app:layout_constraintStart_toStartOf="@+id/tv_toolbar"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:transitionName="search"
                     tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

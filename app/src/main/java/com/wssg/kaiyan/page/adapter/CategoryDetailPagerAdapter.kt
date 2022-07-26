@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wssg.kaiyan.model.bean.CategoryBean
 import com.wssg.kaiyan.page.Constant
-import com.wssg.kaiyan.page.ui.fragment.OnlyRvFragment
+import com.wssg.kaiyan.page.ui.fragment.InCategoryFragment
+import com.wssg.kaiyan.page.ui.fragment.ReuseFragment
 
 /**
  * ...
@@ -32,7 +33,7 @@ class CategoryDetailPagerAdapter(
                 }
             )
             this.putSerializable("categoryBean", categoryBean)
-            val fragment = OnlyRvFragment()
+            val fragment = InCategoryFragment()
             fragment.arguments = this
             fragment
         }

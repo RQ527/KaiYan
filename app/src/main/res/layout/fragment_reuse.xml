@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wssg.kaiyan.widget.view.MyRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_innerFrag"
+    android:layout_width="match_parent"
+    android:layout_height="800dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_innerFrag"
+        android:layout_width="match_parent"
+        android:layout_height="800dp" />
+
+</com.wssg.kaiyan.widget.view.MyRefreshView>

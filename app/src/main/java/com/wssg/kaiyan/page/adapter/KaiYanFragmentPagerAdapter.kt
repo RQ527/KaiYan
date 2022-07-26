@@ -6,7 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wssg.kaiyan.page.ui.fragment.FindFragment
 import com.wssg.kaiyan.page.ui.fragment.HomeFragment
 import com.wssg.kaiyan.page.ui.fragment.HotFragment
-import com.wssg.kaiyan.page.ui.fragment.MineFragment
 
 /**
  * ...
@@ -17,14 +16,13 @@ import com.wssg.kaiyan.page.ui.fragment.MineFragment
 class KaiYanFragmentPagerAdapter(_fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(_fragmentActivity) {
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment =
         when (position) {
             0 -> HomeFragment()
             1 -> FindFragment()
             2 -> HotFragment()
-            3 -> MineFragment()
             else -> error("Fragment Error")
         }
 

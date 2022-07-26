@@ -36,10 +36,6 @@ class MainActivity : BaseVmActivity<HomeFragmentViewModel>() {
                     viewPager.currentItem = 2
                     "热门"
                 }
-                R.id.mine -> {
-                    viewPager.currentItem = 3
-                    "我的"
-                }
                 else -> error("MainActivity位置匹配错误")
             }
             return@setOnItemSelectedListener true

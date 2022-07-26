@@ -13,7 +13,7 @@ object Constant {
     const val FIND_FRAGMENT_RECOMMEND = "inFindFragment_recommend"
     const val HOT_FRAGMENT_MONTHLY = "inHOTFragment_monthly"
     const val HOT_FRAGMENT_WEEKLY = "inHOTFragment_weekly"
-    const val HOT_FRAGMENT_ALL = "inHOTFragment_all"
+    const val HOT_FRAGMENT_HISTORICAL = "inHOTFragment_historical"
     const val CATEGORY_ACTIVITY_RECOMMEND = "inCategoryActivity_recommend"
     const val CATEGORY_ACTIVITY_SQUARE = "inCategoryActivity_square"
 }

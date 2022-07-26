@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wssg.kaiyan.page.Constant
-import com.wssg.kaiyan.page.ui.fragment.OnlyRvFragment
+import com.wssg.kaiyan.page.ui.fragment.ReuseFragment
 
 /**
  * ...
@@ -24,11 +24,11 @@ class HotFragPagerAdapter(_fragmentActivity: FragmentActivity) :
                 "type", when (position) {
                     0 -> Constant.HOT_FRAGMENT_MONTHLY
                     1 -> Constant.HOT_FRAGMENT_WEEKLY
-                    2 -> Constant.HOT_FRAGMENT_ALL
+                    2 -> Constant.HOT_FRAGMENT_HISTORICAL
                     else -> error("HotFragPagerAdapter位置错误")
                 }
             )
-            val fragment = OnlyRvFragment()
+            val fragment = ReuseFragment()
             fragment.arguments = this
             fragment
         }
