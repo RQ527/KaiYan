@@ -40,11 +40,6 @@ class MyRefreshView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr), NestedScrollingParent3 {
     /**
-     * 是否开启此控件的刷新功能，因为我发现在一些复杂的嵌套情况下会出问题，因此选择性开启
-     */
-    var isUsed = true
-
-    /**
      * 刷新头部
      */
     @SuppressLint("InflateParams")
@@ -196,8 +191,8 @@ class MyRefreshView @JvmOverloads constructor(
                 val hour = calendar.get(Calendar.HOUR)
                 val minute = calendar.get(Calendar.MINUTE)
                 timeTv.text = "上次刷新时间:$month/$day $hour:$minute"
-                if (keyName == null && isUsed) throw RuntimeException("keyName未被初始化")
-                if (isUsed) saveValue(keyName!!, timeTv.text.toString())
+                if (keyName == null ) throw RuntimeException("keyName未被初始化")
+                saveValue(keyName!!, timeTv.text.toString())
                 state = REFRESHED
                 animIv.visibility = View.INVISIBLE
                 mHandler.sendEmptyMessageDelayed(0, 500)
@@ -245,7 +240,6 @@ class MyRefreshView @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (!isUsed) return super.onTouchEvent(event)
         var isEaten = false
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -257,6 +251,7 @@ class MyRefreshView @JvmOverloads constructor(
                 //rv滑到顶部并且是下滑并且距离大于滑动最小值才滑动
                 if (rvIsToTop() && distance >= 0) {
                     isEaten = true
+                    parent.requestDisallowInterceptTouchEvent(true)
                     state = if (distance >= headerView.height) {
                         if (state != CAN_REFRESH)//没有
                             canRefresh()
@@ -301,7 +296,6 @@ class MyRefreshView @JvmOverloads constructor(
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        if (!isUsed) return super.onInterceptTouchEvent(ev)
         when (ev.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (state != IDLE) return true//拦截刷新的时候的骚操作
@@ -350,7 +344,7 @@ class MyRefreshView @JvmOverloads constructor(
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
-        if (rvIsToTop() && isUsed) {//接收到来自RV滑到顶后剩余的滑动，于是就让父布局重新分发一下事件给自己消耗
+        if (rvIsToTop()) {//接收到来自RV滑到顶后剩余的滑动，于是就让父布局重新分发一下事件给自己消耗
             requestDisallowInterceptTouchEvent(false)
         }
     }
