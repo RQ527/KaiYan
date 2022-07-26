@@ -8,7 +8,17 @@
 
 **分别是主界面、发现界面、热门界面、分类详情界面、播放视频界面、搜索界面。**
 
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/主界面.gif" style="zoom: 25%;" /><img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/发现界面.gif" style="zoom:25%;" /><img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/热门界面.gif" style="zoom:25%;" /><img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/分类详情界面.gif" style="zoom:25%;" /><img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/视频播放界面.gif" style="zoom:25%;" /><img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/搜素界面.gif" style="zoom:25%;" />
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/主界面.gif" style="zoom: 25%;" />
+
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/发现界面.gif" style="zoom:25%;" />
+
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/热门界面.gif" style="zoom:25%;" />
+
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/分类详情界面.gif" style="zoom:25%;" />
+
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/视频播放界面.gif" style="zoom:25%;" />
+
+<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/搜素界面.gif" style="zoom:25%;" />
 
 ## 技术简介
 
