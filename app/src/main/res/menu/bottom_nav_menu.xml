@@ -16,9 +16,4 @@
         android:icon="@drawable/hot_selector"
         android:title="热门" />
 
-    <item
-        android:id="@+id/mine"
-        android:icon="@drawable/mine_selector"
-        android:title="我的" />
-
 </menu>
