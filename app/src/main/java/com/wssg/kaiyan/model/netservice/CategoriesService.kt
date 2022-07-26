@@ -26,7 +26,7 @@ interface CategoriesService {
         @Query("strategy") strategy: String
     ): BaseResp<List<CategoryRecBean>>
 
-    @GET("/api/v6/tag/dynamics?id=12")
+    @GET("/api/v6/tag/dynamics")
     suspend fun getCategoryDetailSquare(
         @Query("id") id: String,
         @Query("start") start: String,
