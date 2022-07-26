@@ -19,6 +19,7 @@ import android.widget.Scroller
 import android.widget.TextView
 import androidx.core.view.NestedScrollingParent3
 import androidx.core.view.ViewCompat
+import androidx.core.view.iterator
 import androidx.recyclerview.widget.RecyclerView
 import com.wssg.kaiyan.R
 import com.wssg.kaiyan.utils.dpToPx
@@ -141,6 +142,7 @@ class MyRefreshView @JvmOverloads constructor(
         tipTv = headerView.findViewById(R.id.tv_refresh_layout_tip)
         timeTv = headerView.findViewById(R.id.tv_refresh_layout_time)
         animIv = headerView.findViewById(R.id.iv_refresh_layout_anim)
+        timeTv.post { keyName?.let { timeTv.text = achieveValue(it) } }
         orientation = VERTICAL
     }
 
@@ -150,11 +152,6 @@ class MyRefreshView @JvmOverloads constructor(
         val view = getChildAt(1)
         if (view is RecyclerView) recyclerView = view
         else throw RuntimeException("MyRefreshView子布局只能是RecyclerView")
-    }
-
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
-        keyName?.let { timeTv.text = achieveValue(it) }
     }
 
     /**
@@ -188,7 +185,7 @@ class MyRefreshView @JvmOverloads constructor(
                 val calendar = Calendar.getInstance()
                 val month = calendar.get(Calendar.MONTH) + 1
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
-                val hour = calendar.get(Calendar.HOUR)
+                val hour = calendar.get(Calendar.HOUR_OF_DAY)
                 val minute = calendar.get(Calendar.MINUTE)
                 timeTv.text = "上次刷新时间:$month/$day $hour:$minute"
                 if (keyName == null ) throw RuntimeException("keyName未被初始化")

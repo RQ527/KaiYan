@@ -54,6 +54,7 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        refreshLayout.keyName = type
         recyclerView.layoutManager =
             when (type) {
                 FIND_FRAGMENT_FOLLOW -> {
@@ -61,7 +62,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getFollowData(), adapter)
-                    refreshLayout.keyName = "findFollowFragRefresh"
                     refreshLayout.setOnRefreshListener {
                         adapter.refresh()
                     }
@@ -103,7 +103,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                             }
                         }
                     }
-                    refreshLayout.keyName = "findCategoryFragRefresh"
                     refreshLayout.setOnRefreshListener{
                         viewModel.getAllCategories()
                     }
@@ -115,7 +114,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     recyclerView.adapter =
                         adapter.withLoadStateFooter(PagingFooterAdapter { adapter.retry() })
                     bindAdapterToPaging(viewModel.getCommunityData(), adapter)
-                    refreshLayout.keyName = "findRecommendFragRefresh"
                     refreshLayout.setOnRefreshListener {
                         adapter.refresh()
                     }
@@ -162,7 +160,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                                         adapter.submitList(swapBean(it.itemList!!))
                                     }
                                 }
-                                refreshLayout.keyName = "rankMonthlyFragRefresh"
                             }
                             HOT_FRAGMENT_WEEKLY -> {
                                 weeklyRankLiveData.observe(requireActivity()) {
@@ -171,7 +168,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                                         adapter.submitList(swapBean(it.itemList!!))
                                     }
                                 }
-                                refreshLayout.keyName = "rankWeeklyFragRefresh"
                             }
                             HOT_FRAGMENT_HISTORICAL -> {
                                 historicalRankLiveData.observe(requireActivity()) {
@@ -183,7 +179,6 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                             }
                             else -> ""
                         }
-                        refreshLayout.keyName = "rank${type}FragRefresh"
                         refreshLayout.setOnRefreshListener{
                             getRankList(type.substring(14,type.length))
                         }
