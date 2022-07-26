@@ -8,17 +8,8 @@
 
 **分别是主界面、发现界面、热门界面、分类详情界面、播放视频界面、搜索界面。**
 
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/主界面.gif" style="zoom: 25%;" />
-
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/发现界面.gif" style="zoom:25%;" />
-
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/热门界面.gif" style="zoom:25%;" />
-
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/分类详情界面.gif" style="zoom:25%;" />
-
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/视频播放界面.gif" style="zoom:25%;" />
-
-<img src="https://rq527-1310352304.cos.ap-chongqing.myqcloud.com/搜素界面.gif" style="zoom:25%;" />
+<img src="https://github.com/RQ527/KaiYan/blob/master/images/%E4%B8%BB%E7%95%8C%E9%9D%A2.gif" width="200" height="400" /><img src="https://github.com/RQ527/KaiYan/blob/master/images/%E5%8F%91%E7%8E%B0%E7%95%8C%E9%9D%A2.gif" width="200" height="400" />
+<img src="https://github.com/RQ527/KaiYan/blob/master/images/%E7%83%AD%E9%97%A8%E7%95%8C%E9%9D%A2.gif" width="200" height="400" /><img src="https://github.com/RQ527/KaiYan/blob/master/images/%E5%88%86%E7%B1%BB%E8%AF%A6%E6%83%85%E7%95%8C%E9%9D%A2.gif" width="200" height="400" /><img src="https://github.com/RQ527/KaiYan/blob/master/images/%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E7%95%8C%E9%9D%A2.gif" width="200" height="400" /><img src="https://github.com/RQ527/KaiYan/blob/master/images/%E6%90%9C%E7%B4%A0%E7%95%8C%E9%9D%A2.gif" width="200" height="400" />
 
 ## 技术简介
 
