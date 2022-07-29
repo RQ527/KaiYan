@@ -84,7 +84,7 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                 }
                 FIND_FRAGMENT_CATEGORY -> {
                     var adapter: CategoriesRvAdapter
-                    viewModel.allCategoriesLiveData.observe(requireActivity()) {
+                    viewModel.allCategoriesLiveData.observe(viewLifecycleOwner) {
                         if (it.dataState==DataState.STATE_ERROR){
                             toast("获取分类数据失败")
                         }
@@ -154,7 +154,7 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                     viewModel.run {
                         when (type) {
                             HOT_FRAGMENT_MONTHLY -> {
-                                monthlyRankLiveData.observe(requireActivity()) {
+                                monthlyRankLiveData.observe(viewLifecycleOwner) {
                                     if (it.dataState==DataState.STATE_ERROR) toast("获取月排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))
@@ -162,7 +162,7 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                                 }
                             }
                             HOT_FRAGMENT_WEEKLY -> {
-                                weeklyRankLiveData.observe(requireActivity()) {
+                                weeklyRankLiveData.observe(viewLifecycleOwner) {
                                     if (it.dataState==DataState.STATE_ERROR) toast("获取周排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))
@@ -170,7 +170,7 @@ class ReuseFragment : BaseVmFragment<InnerFragmentViewModel>() {
                                 }
                             }
                             HOT_FRAGMENT_HISTORICAL -> {
-                                historicalRankLiveData.observe(requireActivity()) {
+                                historicalRankLiveData.observe(viewLifecycleOwner) {
                                     if (it.dataState==DataState.STATE_ERROR) toast("获取总排行失败")
                                     if (it.dataState == DataState.STATE_SUCCESS) {
                                         adapter.submitList(swapBean(it.itemList!!))

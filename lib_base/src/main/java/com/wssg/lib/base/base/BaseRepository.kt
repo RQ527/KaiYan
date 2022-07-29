@@ -32,7 +32,7 @@ abstract class BaseRepository {
         }.onCompletion {
             emit(BaseResp(dataState = DataState.STATE_COMPLETED))
         }.catch {
-            emit(BaseResp(dataState = DataState.STATE_ERROR))
+            emit(BaseResp(dataState = DataState.STATE_ERROR, error = it))
         }
     }
 

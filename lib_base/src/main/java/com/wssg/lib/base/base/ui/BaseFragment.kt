@@ -26,7 +26,7 @@ abstract class BaseFragment : Fragment() {
         data: Flow<PagingData<T>>,
         pagingAdapter: A
     ) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 data.collect {
                     pagingAdapter.submitData(it)

@@ -48,9 +48,7 @@ class HomeFragment : BaseVmFragment<HomeFragmentViewModel>() {
             .withLoadStateFooter(PagingFooterAdapter {
                 pagingAdapter.retry()
             })
-        lifecycleScope.launch {
-            bindAdapterToPaging(viewModel.getHomePagingData(), pagingAdapter)
-        }
+        bindAdapterToPaging(viewModel.getHomePagingData(), pagingAdapter)
         pagingAdapter.setOnClickedListener { detailBean, view ->
             PlayVideoActivity.startActivity(
                 requireContext(),
